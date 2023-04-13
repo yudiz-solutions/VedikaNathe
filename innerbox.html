@@ -22,16 +22,15 @@
                 
     
                 $(document).ready(function () {
-                     $("div").on("click",function(event){
-                     $("div").removeClass("selectItem");
-                     $(this).addClass("selectItem");
-                        $(".selectItem").css("background-color","pink");
-                        $(".selectItem div").css("background-color","blue");
-                        $(".selectItem").parents("div").css("background-color","yellow");
+                    $("div").click(function(event){
+                    $(this).css("background-color","Pink");
+                    $(this).find('*').css("background-color","skyblue");
+                    $(this).parents("div").css("background-color","yellow");
+
                         event.stopPropagation();
-    
                     });
-                });
+                    });
+                
               
             </script>
 
