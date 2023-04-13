@@ -9,62 +9,31 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script> 
         <script src="index1.js"></script>
         <style>
-            /* #box1 {
-                width: 350px;
-                height: 350px;
-                padding: 22px;
-                border: 1px solid black;
-            }
-
-            #box2 {
-                width: 300px;
-                height: 300px;
-                padding: 22px;
-                border: 1px solid black;
-            }
-
-            #box3 {
-                width: 250px;
-                height: 250px;
-                padding: 22px;
-                border: 1px solid black;
-            }
-
-            #box4 {
-                width: 200px;
-                height: 200px;
-                padding: 22px;
-                border: 1px solid black;
-            }
-
-            #box5 {
-                width: 150px;
-                height: 150px;
-                padding: 22px;
-                border: 1px solid black;
-            }
-
-            #box6 {
-                width: 100px;
-                height: 100px;
-                padding: 22px;
-                border: 1px solid black;
-            }
-
-            #box7 {
-                width: 50px;
-                height: 50px;
-                padding: 22px;
-                border: 1px solid black;
-            } */
+            
 
             div{
                 margin: 10px;
                 padding: 10px;
                 border: 1px solid black ;
             }
-        </style>
+            </style>
     </head>
+            <script>
+                
+    
+                $(document).ready(function () {
+                     $("div").on("click",function(event){
+                     $("div").removeClass("selectItem");
+                     $(this).addClass("selectItem");
+                        $(".selectItem").css("background-color","pink");
+                        $(".selectItem div").css("background-color","blue");
+                        $(".selectItem").parents("div").css("background-color","yellow");
+                        event.stopPropagation();
+    
+                    });
+                });
+              
+            </script>
 
     <body>
         <div>
@@ -81,22 +50,6 @@
                 </div>
             </div>
         </div>
-        <script>
-            
-
-            $(document).ready(function () {
-                $("div").click(function () {
-                    
-                    $(this).css("background-color","pink");
-                    $(this).children().css("background-color","skyblue");
-                    $(this).parents("div").css("background-color","yellow");
-                    event.stopPropagation();
-
-
-                   
-                });
-            });
-        </script>
 
     </body>
 
@@ -104,29 +57,3 @@
 
 
 
-<!-- $('.inner-box').removeClass('selected unselected');
-$('.inner-box').not(this).addClass('unselected');
-$(this).addClass('selected');
-
-// var id = $(this).children(":selected").attr("id");
-// var id = $(this).val();
-$('.inner-box selected').css('background-color', 'blue');
-$('.unselected').css('background-color', 'pink');
-$('.selected').children().css('background-color', 'red');
-$('.unselected').children().css('background-color', 'blue');
-
-console.log(this); -->
-
-
-<!-- 
-// $(document).ready(function () {
-    //     $('.inner-box').click(function () {
-    //         event.stopPropagation();
-    //         $(this).addClass('selected');
-    //         $('.inner-box').not(this).addClass('unselected');
-    //         $('.selected').css('background-color', 'blue');
-    //         $('.unselected').css('background-color', 'pink');
-    //         $(this).children().css('background-color', 'red');
-    //         $('.inner-box').not(this).children().css('background-color', 'pink');
-    //     });
-    // }); -->
