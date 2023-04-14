@@ -3,26 +3,62 @@
 <head>
 	<title>Documentation of Records</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<style>
-		table,
-		th,
-		td {
+		table,th,td {
 			border: 1px solid black;
+			width: auto;
+			height: auto;
+			padding: auto;
+		}
+		/* section{
+			padding-top: 30px;
+			max-width: 600px;
+			margin: 0 auto;
+			column-gap: 30px;
+		} */
+		#form,#editForm{
+	
+			border: 1px solid black;
+		}
+		#form{
+			padding-left: 10px;
+			margin-right: 20px;
+		}
+		.deleteBtn{
+			margin-top: 5px;
 		}
 	</style>
 </head>
 <body>
+	<section class="d-flex">
 	<form id="form">
+
 		<label for="title">Title:</label>
 		<input type="text" id="title" name="title"><br><br>
 
 		<label for="body">Body:</label>
 		<textarea id="body" name="body"></textarea><br><br>
 
-		<button type="submit">Submit</button><br>
+	<button type="submit">Submit</button><br><br>
+
 	</form>
 
-	<table id="table">
+	<form id="editForm">
+
+		<input type="hidden" name="id">
+
+		<label for="editTitle">Title:</label>
+		<input type="text" id="editTitle" name="title"><br><br>
+
+		<label for="editBody">Body:</label>
+		<textarea id="editBody" name="body"></textarea><br><br>
+
+		<center><button type="submit">Save Changes</button></center><br>
+	</form>
+</section>
+
+	<table id="table" class="table table-hover","table-dark">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -37,50 +73,27 @@
 
 	<script>
 		$(document).ready(function(){
-			function displayDocument(){
+			function getData(){
 				$.ajax({
 					url: "https://jsonplaceholder.typicode.com/posts",
 					success: function(data){
 						$.each(data, function(index, post){
-							var row = "<tr><td>"+ post.id +"</td><td>"+ post.title +"</td><td>"+ post.body +"</td><td><button class='deleteBtn' data-id='"+post.id+"'>Delete</button></td></tr>";
+							var row = "<tr><td>"+ post.id +"</td><td>"+ post.title +"</td><td>"+ post.body +"</td><td><button class='editBtn' data-id='"+post.id+"' data-title='"+post.title+"' data-body='"+post.body+"'>Edit</button> <button class='deleteBtn' data-id='"+post.id+"'>Delete</button></td></tr>";
 							$("#table tbody").append(row);
 						});
 					}
 				});
 			}
 
-			displayDocument();
+			getData();
 
-			$("#form").submit(function(event){
-				event.preventDefault();
+			$(document).on("click", ".deleteBtn", function(){
 
-				// var title = $("#title").val();
-				// var body = $("#body").val();
-                var mergeData = $('#form').serialize();
-                console.log(mergeData);
-
+				var row = $(this).closest("tr");
+				var postId = $(this).data("id");
 
 				$.ajax({
-					url: "https://jsonplaceholder.typicode.com/posts",
-					method: "POST",
-                    data:mergeData,
-                 
-					success: function(data){
-						var row = "<tr><td>"+ data.id +"</td><td>"+ data.title +"</td><td>"+ data.body +"</td><td><button class='deleteBtn' data-id='"+data.id+"'>Delete</button></td></tr>";
-						$("#table tbody").append(row);
-					}
-				});
-                
-                $(this).trigger('reset');
 
-			});
-
-			$(document).on('click', '.deleteBtn', function(){
-				var postId = $(this).data('id');
-				var row = $(this).closest('tr');
-
-
-				$.ajax({
 					url: "https://jsonplaceholder.typicode.com/posts/" + postId,
 					method: "DELETE",
 					success: function(){
@@ -88,7 +101,78 @@
 					}
 				});
 			});
-		});
-	</script>
+
+			
+			$(document).on("click", ".editBtn", function(){
+
+				$('#editForm input[name="id"]').val($(this).data("id"));
+
+				$('#editForm input[name="title"]').val($(this).data("title"));
+
+				$('#editForm textarea[name="body"]').val($(this).data("body"));
+
+				editForm("#editForm", $(this))
+
+			});
+
+			// function editForm(formId,btnData){
+			// 	$(`${formId} input[name="id"]`).val(btnData.data("id"))
+			// 	$(`${formId} input[name="title"]`).val(btnData.data("title"))
+			// 	$(`${formId} textarea[name="body"]`).val(btnData.data("body"))
+
+			// }
+
+			
+			$('#form, #editForm').submit(function(event){
+
+				event.preventDefault();
+
+
+                if ($(this).attr('id') === 'form') {
+                         
+                        var mergeData = $(this).serialize();
+
+
+                $.ajax({
+                    url: "https://jsonplaceholder.typicode.com/posts",
+                    method: "POST",
+                    data: mergeData,
+                    success: function(data){
+
+                        var row = "<tr><td>"+ data.id +"</td><td>"+ data.title +"</td><td>"+ data.body +"</td><td><button class='editBtn' data-id='"+data.id+"'>Edit</button> <button class='deleteBtn' data-id='"+data.id+"'>Delete</button></td></tr>";
+                        $("#table tbody").append(row);
+
+                    }
+
+                });
+
+                         $(this).trigger('reset');
+
+                } else {
+
+                         // handle submit for the second form
+                        var postData = $(this).serializeArray();
+                        var formURL = "https://jsonplaceholder.typicode.com/posts/" + postData[0].value;
+
+                $.ajax({
+                    url: formURL,
+                    type: "PUT",
+                    data: postData,
+                    
+                    success: function(data){
+                    
+                        var row = $("button.editBtn[data-id='" + postData[0].value + "']").closest("tr");
+                        row.find("td:eq(1)").html(postData[1].value);
+                        row.find("td:eq(2)").html(postData[2].value);
+                    }       
+                });
+
+                $(this).trigger('reset');
+                        
+}
+	});
+	});
+</script>
 </body>
 </html>
+
