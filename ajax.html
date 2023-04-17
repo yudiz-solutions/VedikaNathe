@@ -21,6 +21,7 @@
     <body>
         <div class="container">
             <div class="container my-lg-4">
+                <h1> Data Entry </h1>
                 <form id="form" class="form-control d-inline-flex p-2 bd-highlight align-items-stretch flex-column">
 
                     <input type="hidden" class="form-control" id="postId" name="id">
@@ -33,7 +34,7 @@
 
                     <button type="submit" class="btn btn-primary" id="addBtn">Add</button>
                     <button type="submit" id="editBtn" style="display:none;">Save</button>
-                    <!-- <button type="button" id="cancelBtn" style="display:none;">Cancel</button><br><br> -->
+                    <button type="button" id="cancelBtn" style="display:none;">Cancel</button><br><br>
 
                 </form>
             </div>
@@ -62,7 +63,9 @@
                             $.each(data, function (index, post) {
                                 var row = "<tr data-id='" + post.id + "'><td>" + post.id + "</td><td>" + post.title + "</td><td>" + post.body + "</td><td><button class='editBtn btn btn-primary' data-id='" + post.id + "' data-title='" + post.title + "' data-body='" + post.body + "'>Edit</button> <button class='deleteBtn btn btn-danger' data-id='" + post.id + "'>Delete</button></td></tr>";
                                 $("#table1 tbody").append(row);
+                                // console.log(row)
                             });
+                            
                         }
                     });
                 }
@@ -84,18 +87,15 @@
                     });
                 });
 
-                //  convert edit  buttton to save 
-
                 $(document).on("click", ".editBtn", function () {
                     var postId = $(this).data("id");
                     var row = $("tr[data-id='" + postId + "']");
                     row.find("td:eq(1)").html("<input type='text' name='title' value='" + row.find("td:eq(1)").text() + "'>");
                     row.find("td:eq(2)").html("<textarea name='body'>" + row.find("td:eq(2)").text() + "</textarea>");
                     row.find("td:eq(3)").html(" <button class='saveBtn btn btn-success' data-id='" + postId + "'>Save</button>");
+
                 });
-
-                //  convert save button to edit & delete
-
+                
                 $(document).on("click", ".saveBtn", function () {
                     var postId = $(this).data("id");
                     var row = $("tr[data-id='" + postId + "']");
@@ -103,9 +103,9 @@
                     row.find("td:eq(2)").html(row.find("td:eq(2) textarea").val());
                     row.find("td:eq(3)").html("<button class='editBtn btn btn-primary' data-id='" + postId + "'>Edit</button> <button class='deleteBtn btn btn-danger' data-id='" + postId + "'>Delete</button>");
                 });
-
-
-
+                
+                var successCount = 0;
+                
                 $(document).on("submit", "#form", function (event) {
                     event.preventDefault();
                     var postData = $(this).serializeArray();
@@ -114,11 +114,16 @@
                         type: "POST",
                         data: postData,
                         success: function (post) {
-                            var row = "<tr data-id='" + post.id + "'><td>" + post.id + "</td><td>" + post.title + "</td><td>" + post.body + "</td><td><button class='editBtn' data-id='" + post.id + "' data-title='" + post.title + "' data-body='" + post.body + "'>Edit</button> <button class='deleteBtn btn btn-danger' data-id='" + post.id + "'>Delete</button></td></tr>";
+                            let id = post.id+successCount;
+                            console.log(id);
+                            var row = "<tr data-id='" + id + "'><td>" + id + "</td><td>" + post.title + "</td><td>" + post.body + "</td><td><button class='editBtn' data-id='" + id + "' data-title='" + post.title + "' data-body='" + post.body + "'>Edit</button> <button class='deleteBtn btn btn-danger' data-id='" + id + "'>Delete</button></td></tr>";
+                            successCount++;
                             $("#table1 tbody").append(row);
                             $("#form")[0].reset();
-                        }
-                    });
+                        } 
+                    }
+                    );
+                     post.id++;
                 });
 
                 $(document).on("submit", "#editForm", function (event) {
