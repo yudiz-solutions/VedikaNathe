@@ -360,3 +360,126 @@ if ($uploadOk == 0) {
 //     echo "Please log in";
 // }
 ?>
+
+<!-- filters -->
+<?php
+// $email = "veds.nathe@gmail.com";
+
+// if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
+//   echo "Email address is valid";
+// } else {
+//   echo "Email address is not valid";
+// }
+
+?>
+
+<?php
+// $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+
+// echo "Hello, " . $name . "!";
+
+?>
+
+<?php
+// $input = array(
+//     'number1' => 123,
+//     'number2' => "abc",
+//     'number3' => 456,
+//   );
+  
+//   $filters = array(
+//     'number1' => FILTER_VALIDATE_INT,
+//     'number2' => FILTER_VALIDATE_INT,
+//     'number3' => FILTER_VALIDATE_INT,
+//   );
+  
+//   $result = filter_input_array(INPUT_GET, $filters);
+  
+//   var_dump($result);
+  
+?>
+
+<!-- CALLBACK -->
+<?php
+// function add($a, $b) {
+//     return $a + $b;
+// }
+
+// function subtract($a, $b) {
+//     return $a - $b;
+// }
+
+// function calculate($callback, $a, $b) {
+//     return $callback($a, $b);
+// }
+
+// $result = calculate('add', 10, 5);
+// echo $result; 
+
+// $result = calculate('subtract', 10, 5);
+// echo $result; 
+
+?>
+
+<!-- encoding a PHP array into JSON -->
+<?php
+// $data = array(
+//     'name' => 'Divya Patil',
+//     'age' => 30,
+//     'email' => 'divya.patil@example.com'
+// );
+
+// $json = json_encode($data);
+
+// echo $json;
+// ?>
+
+<!--  decoding a JSON-encoded string  -->
+<?php
+// $json = '{"name":"shreya zade","age":30,"email":"shreya.zade@example.com"}';
+
+// $data = json_decode($json);
+
+// echo $data->name;
+// echo $data->age;
+// echo $data->email;
+
+?>
+
+<!-- Exception(try,catch) -->
+<?php
+// function divide($a, $b) {
+//     if ($b == 0) {
+//         throw new Exception('Division by zero');
+//     }
+
+//     return $a / $b;
+// }
+
+// try {
+//     echo divide(10, 0);
+// } catch (Exception $e) {
+//     echo 'Error: ' . $e->getMessage();
+// }
+// ?>
+
+<!-- Exception(try,catch,finally) -->
+
+<?php
+// function divide($a, $b) {
+//     if ($b == 0) {
+//         throw new Exception('Division by zero');
+//     }
+
+//     return $a / $b;
+// }
+
+// try {
+//     echo divide(10, 0);
+// } catch (Exception $e) {
+//     echo 'Error: ' . $e->getMessage();
+// } finally {
+//     echo 'Finally block executed';
+// }
+?>
+
