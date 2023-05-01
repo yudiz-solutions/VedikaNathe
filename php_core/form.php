@@ -19,7 +19,8 @@
 
 $fnameErr = $lnameErr = $emailErr = $mobilenoErr  = $genderErr = $educationErr = "";
 
- $fname = $lname = $email = $mobileno =  $address = $gender = $education = "";
+$error=$fname = $lname = $email = $mobileno =  $address = $gender = $education = "";
+$error="";
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 

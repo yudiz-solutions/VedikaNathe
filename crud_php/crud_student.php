@@ -1,5 +1,58 @@
+
 <?php
 session_start();
+include('db_connection_crud.php');
+
+// add student
+if (isset($_POST['save_student'])) {
+
+    // validate student name
+    $name = $_POST['name'];
+    if (!preg_match("/^[a-zA-Z ]+$/", $name)) {
+        $_SESSION['message'] = "Invalid student name. Only letters and white space allowed.";
+        $_SESSION['msg_type'] = "danger";
+        header("location: crud.php");
+        exit();
+    }
+
+    // validate email
+    $email = $_POST['email'];
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $_SESSION['message'] = "Invalid email format.";
+        $_SESSION['msg_type'] = "danger";
+        header("location: crud.php");
+        exit();
+    }
+
+    // validate phone
+    $phone = $_POST['phone'];
+    if (!preg_match("/^\d{10}$/", $phone)) {
+        $_SESSION['message'] = "Invalid phone number. Must be a 10-digit number.";
+        $_SESSION['msg_type'] = "danger";
+        header("location: crud.php");
+        exit();
+    }
+
+    // validate course
+    $course = $_POST['course'];
+    if (!preg_match("/^[a-zA-Z ]+$/", $course)) {
+        $_SESSION['message'] = "Invalid course name. Only letters and white space allowed.";
+        $_SESSION['msg_type'] = "danger";
+        header("location: crud.php");
+        exit();
+    }
+
+    $sql = "INSERT INTO student (name, email, phone, course) VALUES (?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssss", $name, $email, $phone, $course);
+    $stmt->execute();
+
+    $_SESSION['message'] = "Record has been saved!";
+    $_SESSION['msg_type'] = "success";
+
+    header("location: crud_table.php");
+    exit();
+}
 ?>
 
 

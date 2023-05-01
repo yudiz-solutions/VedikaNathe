@@ -14,7 +14,7 @@ session_start();
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         
-        <title>Hello, world!</title>
+        <title>Student Edit</title>
     </head>
     
     <body>
@@ -25,11 +25,20 @@ session_start();
         <div class="row">
             <div class="col-md-12">
                 <div class="card-header">
-                    <h4>Student Add
+                    <h4>Student Edit
                         <a href="crud_table.php" class="btn btn-danger float-end">BACK</a>
                     </h4>
                 </div>
             </div class="card-body">
+            <?php
+            if(isset($_GET['id']))
+            {
+                echo $student_id = $_GET['id'];
+                // $query = "SELECT * FROM students WHERE id='$student_id' ";
+            }
+
+
+            ?>
             <form action="crud.php" method="POST">
 
                 <div class="mb-3">
@@ -53,7 +62,7 @@ session_start();
                 </div>
 
                 <div class="mb-3">
-                    <button type="submit" name="save_student" class="btn btn-primary">Save Student</button>
+                    <button type="submit" name="update_student" class="btn btn-primary">Update Student</button>
 
                 </div>
 

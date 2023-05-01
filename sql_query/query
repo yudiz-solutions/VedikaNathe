@@ -1,0 +1,100 @@
+1.Show all customers in the database.
+-> SELECT * FROM customers;
+
+2.Show all products in the database.
+-> SELECTS * FROM products;
+
+3.Show all orders in the database.
+-> SELECTS * FROM orders;
+
+4.Show all order items in the database.
+-> SELECTS * FROM order_items;
+
+5.Show the customer with ID 1.
+-> SELECT * FROM customers WHERE customer_id = 1;
+
+6.Show the product with ID 2.
+-> SELECT * FROM products WHERE product_id = 2;
+
+7.Show the order with ID 3.
+-> SELECT * FROM oders WHERE order_id = 3;
+
+8.Show the order item for order ID 1 and product ID 1.
+->SELECT * FROM order items WHERE order_id = 1 and product_id = 1;
+
+9.Show the total number of customers in the database.
+->SELECT COUNT(*) FROM customers;
+
+10.Show the total number of products in the database.
+->SELECT COUNT(*) FROM products;
+
+11.Show the total number of orders in the database.
+->SELECT COUNT(*) FROM orders;
+
+12.Show the total number of order items in the database.
+->SELECT COUNT(*) FROM order_items;
+
+13.Show the average price of products in the database.
+->SELECT AVG(price) FROM products;
+
+14.Show the maximum price of products in the database.
+->SELECT MAX(price) FROM products;
+
+15.Show the minimum price of products in the database.
+->SELECT MIN(price) FROM products;
+
+16.Show the total inventory of all products.
+->SELECT SUM(inventory) FROM products;
+
+17.Show the orders for customer with ID 2.
+->SELECT * FROM orders WHERE customer_id = 2;
+
+18.Show the order items for order with ID 4.
+->SELECT * FROM order_items WHERE order_id = 4;
+
+19.Show the total amount spent by customer with ID 1.
+->SELECT SUM(total) FROM orders WHERE customer_id = 1; 
+
+20.Show the total number of order items for order with ID 2.
+->SELECT COUNT(order_id) FROM order_items WHERE order_id = 2;
+
+21.Show the product with the highest price.
+->SELECT MAX(price) FROM products;
+
+22.Show the customer who has spent the most money.
+->SELECT first_name,MAX(orders.total) FROM customers INNER JOIN orders ON customers.customer_id = orders.order_id;
+
+23.Show the customer who has placed the most orders.
+->SELECT customer
+
+24.Show the product with the most inventory.
+->SELECT MAX(inventory) FROM products 
+
+Show the order with the highest total.
+Show the total revenue for the month of January 2022.
+Show the total revenue for each month in 2022.
+Show the average total spent per order.
+Show the average price of products with more than 50 units in inventory.
+Show the number of orders placed each day in January 2022.
+Show the number of orders placed each hour of the day.
+Show the number of orders placed on each day of the week.
+Show the top 5 customers by total amount spent.
+Show the top 5 products by total revenue.
+Show the customers who have never placed an order.
+Show the products that have never been ordered.
+Show the customers who have placed more than 2 orders.
+Show the products that have a price between $10 and $20.
+Show the orders placed in the month of January 2022, sorted by order date.
+Show the order items for the order placed on January 2, 2022.
+Show the orders placed by customer with ID 1, sorted by order date.
+Show the customer who has placed the most orders in January 2022.
+Show the products that have been ordered at least once, sorted by product name.
+Show the customers who live in California or Texas.
+Show the orders that were placed on January 1, 2022, and have a total greater than $20.
+Show the products that have less than 10 units in inventory.
+Show the customers who have spent more than $100.
+Show the customers who have an email address that ends with '@example.com'.
+Show the orders placed by customers who live in New York.
+Show the products that have been ordered at least 5 times, sorted by total revenue.
+
+

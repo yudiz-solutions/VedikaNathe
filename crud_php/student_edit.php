@@ -26,7 +26,7 @@ require 'db_connection_crud.php';
         <div class="row">
             <div class="col-md-12">
                 <div class="card-header">
-              1      <h4>Student Edit
+                    <h4>Student Edit
                         <a href="crud_table.php" class="btn btn-danger float-end">BACK</a>
                     </h4>
                 </div>
