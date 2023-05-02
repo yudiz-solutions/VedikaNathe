@@ -1,100 +1,269 @@
 1.Show all customers in the database.
--> SELECT * FROM customers;
+-> SELECT * 
+FROM customers;
 
 2.Show all products in the database.
--> SELECTS * FROM products;
+-> SELECTS * 
+FROM products;
 
 3.Show all orders in the database.
--> SELECTS * FROM orders;
+-> SELECTS * 
+FROM orders;
 
 4.Show all order items in the database.
--> SELECTS * FROM order_items;
+-> SELECTS * 
+FROM order_items;
 
 5.Show the customer with ID 1.
--> SELECT * FROM customers WHERE customer_id = 1;
+-> SELECT * 
+FROM customers 
+WHERE customer_id = 1;
 
 6.Show the product with ID 2.
--> SELECT * FROM products WHERE product_id = 2;
+-> SELECT * 
+FROM products 
+WHERE product_id = 2;
 
 7.Show the order with ID 3.
--> SELECT * FROM oders WHERE order_id = 3;
+-> SELECT * 
+FROM oders 
+WHERE order_id = 3;
 
 8.Show the order item for order ID 1 and product ID 1.
-->SELECT * FROM order items WHERE order_id = 1 and product_id = 1;
+->SELECT * 
+FROM order items 
+WHERE order_id = 1 and product_id = 1;
 
 9.Show the total number of customers in the database.
-->SELECT COUNT(*) FROM customers;
+->SELECT COUNT(*) 
+FROM customers;
 
 10.Show the total number of products in the database.
-->SELECT COUNT(*) FROM products;
+->SELECT COUNT(*) 
+FROM products;
 
 11.Show the total number of orders in the database.
-->SELECT COUNT(*) FROM orders;
+->SELECT COUNT(*) 
+FROM orders;
 
 12.Show the total number of order items in the database.
-->SELECT COUNT(*) FROM order_items;
+->SELECT COUNT(*) 
+FROM order_items;
 
 13.Show the average price of products in the database.
-->SELECT AVG(price) FROM products;
+->SELECT AVG(price) 
+FROM products;
 
 14.Show the maximum price of products in the database.
-->SELECT MAX(price) FROM products;
+->SELECT MAX(price) 
+FROM products;
 
 15.Show the minimum price of products in the database.
-->SELECT MIN(price) FROM products;
+->SELECT MIN(price) 
+FROM products;
 
 16.Show the total inventory of all products.
-->SELECT SUM(inventory) FROM products;
+->SELECT SUM(inventory) 
+FROM products;
 
 17.Show the orders for customer with ID 2.
-->SELECT * FROM orders WHERE customer_id = 2;
+->SELECT * 
+FROM orders 
+WHERE customer_id = 2;
 
 18.Show the order items for order with ID 4.
-->SELECT * FROM order_items WHERE order_id = 4;
+->SELECT * 
+FROM order_items 
+WHERE order_id = 4;
 
 19.Show the total amount spent by customer with ID 1.
-->SELECT SUM(total) FROM orders WHERE customer_id = 1; 
+->SELECT SUM(total) 
+FROM orders 
+WHERE customer_id = 1; 
 
 20.Show the total number of order items for order with ID 2.
-->SELECT COUNT(order_id) FROM order_items WHERE order_id = 2;
+->SELECT COUNT(order_id) 
+FROM order_items 
+WHERE order_id = 2;
 
 21.Show the product with the highest price.
-->SELECT MAX(price) FROM products;
+->SELECT MAX(price) 
+FROM products;
 
 22.Show the customer who has spent the most money.
-->SELECT first_name,MAX(orders.total) FROM customers INNER JOIN orders ON customers.customer_id = orders.order_id;
+->SELECT customer_id,max(total) 
+FROM orders;
 
 23.Show the customer who has placed the most orders.
-->SELECT customer
+-> SELECT customer_id 
+FROM orders 
+ORDER BY COUNT(order_id);
 
 24.Show the product with the most inventory.
-->SELECT MAX(inventory) FROM products 
+->SELECT * 
+FROM products 
+ORDER BY inventory DESC 
+LIMIT 1;
 
-Show the order with the highest total.
-Show the total revenue for the month of January 2022.
-Show the total revenue for each month in 2022.
-Show the average total spent per order.
-Show the average price of products with more than 50 units in inventory.
-Show the number of orders placed each day in January 2022.
-Show the number of orders placed each hour of the day.
-Show the number of orders placed on each day of the week.
-Show the top 5 customers by total amount spent.
-Show the top 5 products by total revenue.
-Show the customers who have never placed an order.
-Show the products that have never been ordered.
-Show the customers who have placed more than 2 orders.
-Show the products that have a price between $10 and $20.
-Show the orders placed in the month of January 2022, sorted by order date.
-Show the order items for the order placed on January 2, 2022.
-Show the orders placed by customer with ID 1, sorted by order date.
-Show the customer who has placed the most orders in January 2022.
-Show the products that have been ordered at least once, sorted by product name.
-Show the customers who live in California or Texas.
-Show the orders that were placed on January 1, 2022, and have a total greater than $20.
-Show the products that have less than 10 units in inventory.
-Show the customers who have spent more than $100.
-Show the customers who have an email address that ends with '@example.com'.
-Show the orders placed by customers who live in New York.
-Show the products that have been ordered at least 5 times, sorted by total revenue.
+25.Show the order with the highest total.
+->SELECT * 
+FROM orders 
+ORDER BY total DESC 
+LIMIT 1;
+
+26.Show the total revenue for the month of January 2022.
+->SELECT SUM(total) revenue 
+FROM orders 
+WHERE order_date BETWEEN '2022-01-01' AND '2022-01-31';
+
+27.Show the total revenue for each month in 2022.
+-> SELECT order_id, customer_id, order_date, SUM(total) AS 'TOTAL_REVENUE' 
+FROM orders
+GROUP BY order_date;
+
+28.Show the average total spent per order.
+->SELECT AVG(total) as avg_total_spent 
+FROM order; 
+
+29.Show the average price of products with more than 50 units in inventory.
+->SELECT AVG(price) as avg_price 
+FROM products 
+WHERE inventory > 50;
+
+30.Show the number of orders placed each day in January 2022.
+->SELECT DATE(order_date) AS date, COUNT(*) AS total_orders 
+FROM Orders 
+WHERE order_date BETWEEN '2022-01-01' AND '2022-01-31' 
+GROUP BY date;
+
+31.Show the number of orders placed each hour of the day.
+->SELECT HOUR(order_date) AS hour, COUNT(*) AS total_orders
+FROM Orders
+GROUP BY hour;
+
+32.Show the number of orders placed on each day of the week.
+->SELECT DAYNAME(order_date) AS day , COUNT(*) AS total_orders
+FROM orders 
+GROUP BY day;
+
+33.Show the top 5 customers by total amount spent.
+->SELECT customers.customer_id, customers.first_name, customers.last_name, SUM(orders.total) as total_spent
+FROM Customers
+JOIN Orders  ON customers.customer_id = orders.customer_id
+GROUP BY customers.customer_id
+ORDER BY total_spent DESC
+LIMIT 5;
+
+34.Show the top 5 products by total revenue.
+->SELECT products.product_id, products.name, SUM(order_items.price * order_items.quantity) as total_revenue
+FROM Products
+JOIN Order_Items  ON products.product_id = order_items.product_id
+GROUP BY products.product_id
+ORDER BY total_revenue DESC
+LIMIT 5;
+
+35.Show the customers who have never placed an order.
+->SELECT * 
+FROM orders 
+INNER join customers 
+on customers.customer_id =orders.customer_id 
+WHERE order_id=null;
+
+36.Show the products that have never been ordered.
+->SELECT * 
+FROM order_items
+INNER join products 
+on products.product_id =order_items.product_id 
+WHERE order_id=null;
+
+
+37.Show the customers who have placed more than 2 orders.
+->SELECT Customers.customer_id, Customers.first_name, Customers.last_name
+FROM Customers
+INNER JOIN Orders ON Customers.customer_id = Orders.customer_id
+GROUP BY Customers.customer_id
+HAVING COUNT(*) > 2;
+
+38.Show the products that have a price between $10 and $20.
+->SELECT * FROM products 
+WHERE price 
+BETWEEN 10 AND 20;
+
+39.Show the orders placed in the month of January 2022, sorted by order date.
+->SELECT * 
+FROM orders
+WHERE order_date >= '2022-01-01' and '2022-02-01'
+ORDER BY order_date;
+
+40.Show the order items for the order placed on January 2, 2022.
+-> SELECT * 
+FROM orders 
+WHERE order_date 
+like '2022-01-02%'; 
+
+41.Show the orders placed by customer with ID 1, sorted by order date.
+->SELECT *
+FROM orders
+WHERE customer_id = 1
+ORDER BY order_date;
+
+42.Show the customer who has placed the most orders in January 2022.
+->SELECT customer_id, COUNT(*) as most_orders 
+FROM orders 
+WHERE MONTH(order_date) = 1 AND YEAR(order_date) = 2022 
+GROUP BY customer_id 
+ORDER BY most_orders DESC 
+LIMIT 1;
+
+43.Show the products that have been ordered at least once, sorted by product name.
+->SELECT products.product_id, products.name 
+FROM products 
+JOIN order_items ON products.product_id = order_items.product_id 
+GROUP BY products.product_id, products.name 
+ORDER BY products.name;
+
+44.Show the customers who live in California or Texas.
+->SELECT *
+FROM customers
+WHERE state in ('CA','TX');
+
+45.Show the orders that were placed on January 1, 2022, and have a total greater than $20.
+->SELECT *
+FROM orders
+WHERE order_date >= '2022-01-01' AND total > 20;
+
+46.Show the products that have less than 10 units in inventory.
+-> SELECT * 
+FROM products 
+WHERE inventory > 10;
+
+47.Show the customers who have spent more than $100.
+->SELECT customers.customer_id, customers.first_name 
+FROM customers 
+JOIN orders ON customers.customer_id = orders.customer_id 
+GROUP BY customers.customer_id
+HAVING SUM(total) > 100;
+
+48.Show the customers who have an email address that ends with '@example.com'.
+->SELECT * 
+FROM customers
+ WHERE email 
+LIKE '%@example.com';
+
+49.Show the orders placed by customers who live in New York.
+-> SELECT * 
+FROM customers
+WHERE state = 'NY';
+
+50.Show the products that have been ordered at least 5 times, sorted by total revenue.
+->SELECT Products.product_id, Products.name, COUNT(order_items.order_id) as total_quantity, orders.total as total_revenue
+FROM Products
+JOIN Order_Items ON Products.product_id = Order_Items.product_id
+JOIN orders ON order_items.order_id = orders.order_id
+GROUP BY Products.product_id
+HAVING total_quantity >= 2
+ORDER BY total_revenue DESC;
+
+
 
 
