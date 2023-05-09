@@ -20,7 +20,7 @@ session_start();
     <body>
         <div class="container mt-5">
 
-            <?php include('message_crud.php') ?>
+            <!-- <?php include('message_crud.php') ?> -->
             
         <div class="row">
             <div class="col-md-12">

@@ -14,7 +14,7 @@ if (isset($_POST['submit'])) {
 
     $gender = isset($_POST['gender']) ? $_POST['gender'] : '';
 
-    $country = isset($_POST['country']) ? $_POST['country'] : ''; 
+    $country = isset($_POST['country']) ? $_POST['country'] : '';
 
     $state = isset($_POST['state']) ? $_POST['state'] : '';
 
@@ -27,7 +27,12 @@ if (isset($_POST['submit'])) {
     $file = "uploads/" . $profile;
     echo "$profile";
 
-    $social_media = isset($_POST['social_media']) ? $_POST['social_media'] : '';
+    $social_temp = isset($_POST['social_media']) ? $_POST['social_media'] : '';
+    $social_media = "";
+    foreach ($social_temp as $curr) {
+        $social_media .= $curr . ',';
+
+    }
 
     $sql = "INSERT INTO `userdata` (`id`, `first_name`, `last_name`, `username`, `email`, `password`, `gender`, `country`, `state`, `city`, `bio`, `profile`, `social_media`) VALUES 
     (NULL, '$first_name', '$last_name', ' $username', '$email', '$password', '$gender', '$country',  '$state', '$city', '$bio', '$file', '$social_media')";
@@ -43,6 +48,8 @@ if (isset($_POST['submit'])) {
 
     // mysqli_close($conn);
 }
+
+
 ?>
 
 <!doctype html>
@@ -139,6 +146,7 @@ if (isset($_POST['submit'])) {
                         <option value="Australia">Australia</option>
                     </select>
 
+                    
                 </div>
 
                 <div class="mb-3">
@@ -193,22 +201,26 @@ if (isset($_POST['submit'])) {
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="social_media[]" value="twitter" id="twitter">
+                        <input class="form-check-input" type="checkbox" name="social_media[]" value="twitter"
+                            id="twitter">
                         <label class="form-check-label" for="twitter">Twitter</label>
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="social_media[]" value="linkedin" id="linkedin">
+                        <input class="form-check-input" type="checkbox" name="social_media[]" value="linkedin"
+                            id="linkedin">
                         <label class="form-check-label" for="linkedin">LinkedIn</label>
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="social_media[]" value="facebook" id="facebook">
+                        <input class="form-check-input" type="checkbox" name="social_media[]" value="facebook"
+                            id="facebook">
                         <label class="form-check-label" for="facebook">Facebook</label>
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="social_media[]" value="whatsapp" id="whatsapp">
+                        <input class="form-check-input" type="checkbox" name="social_media[]" value="whatsapp"
+                            id="whatsapp">
                         <label class="form-check-label" for="whatsapp">WhatsApp</label>
                     </div>
 
@@ -223,7 +235,7 @@ if (isset($_POST['submit'])) {
         </div>
 
     </div>
-    
+
     </div>
 </body>
 

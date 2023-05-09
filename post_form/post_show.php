@@ -2,20 +2,23 @@
 require_once 'db_post_form.php';
 
 
-if(isset($_GET['id'])){
+if (isset($_GET['id'])) {
     $id = $_GET['id'];
-
 
     $sql = "SELECT * FROM posts WHERE user_id = $id";
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-        $post = $row['post'];
-        $caption = $row['caption'];
-        $hashtag = $row['hashtag'];
+        while ($row = mysqli_fetch_assoc($result)) {
+            // print_r($row) ;
+            // die;
+            $post = $row['post'];
 
-        
+            $caption = $row['caption'];
+            // echo $caption;
+            $hashtag = $row['hashtag'];
+        }
+
     } else {
 
         $post = "No post yet";
@@ -49,14 +52,15 @@ if(isset($_GET['id'])){
 <body>
     <div class="container">
         <h1>Post Show </h1>
-        <?php if(empty($_GET['id'])) header('location:display_post.php');
+        <?php if (empty($_GET['id']))
+            header('location:display_post.php');
         $id = $_GET['id']; ?>
 
-        <a href="post_add.php?user_id=<?= $id?>" class="btn btn-primary mb-3">Add Post</a>
-       
+        <a href="post_add.php?user_id=<?= $id ?>" class="btn btn-primary mb-3">Add Post</a>
 
 
-        <table class="table">
+
+        <!-- <table class="table">
             <thead>
                 <tr>
                     <th>Sr. No.</th>
@@ -66,60 +70,60 @@ if(isset($_GET['id'])){
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
-                <?php
-                $id = $_GET['id'];
-                
-                $_SESSION['postid'] = $id;
-                
+            <tbody> -->
+        <?php
+        $id = $_GET['id'];
+
+        $_SESSION['postid'] = $id;
 
 
 
-                $sql = "SELECT posts.Id AS id, posts.user_id,posts.post,posts.caption,posts.hashtag,userdata.username from posts INNER JOIN userdata ON userdata.id = posts.user_id WHERE userdata.id = $id";
-                $query_run = mysqli_query($conn, $sql);
 
-                $number = 0;
-                // $number = $user['id']+$count;
-                
-                if (mysqli_num_rows($query_run) > 0) {
-                    foreach ($query_run as $post) {
-                       
-                        $number++;
+        $sql = "SELECT posts.Id AS id, posts.user_id,posts.post,posts.caption,posts.hashtag,userdata.username from posts INNER JOIN userdata ON userdata.id = posts.user_id WHERE userdata.id = $id";
+        $query_run = mysqli_query($conn, $sql);
 
-                        ?>
+        $number = 0;
+        // $number = $user['id']+$count;
+        
+        if (mysqli_num_rows($query_run) > 0) {
+            foreach ($query_run as $post) {
 
-                        <tr>
-                            <td>
-                                <?php echo $number; ?>
-                            </td>
-                            <td>
-                                <img src="<?php echo $post['post'] ?>" alt="post" width="100px">
-                            </td>
-                            <td>
-                                <?php echo $post['caption'] ?>
-                            </td>
-                            <td>
-                                <?php echo $post['hashtag'] ?>
-                            </td>
-                            <td>
-                                
-                                <a href="user_edit_post.php?post_id=<?= $post['id']?>" class="btn btn-primary">Edit</a>
-                                <form method="POST" action="user_delete_post.php">
-                                    <input type="hidden" name="id" value="<?php echo $post['id']; ?>">
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                        <?php
-                    }
-                } else {
-                    echo "<h5> No Record Found </h5>";
-
-                }
-
+                $number++;
 
                 ?>
-            </tbody>
+
+                <div class="card" style="width: 18rem;">
+                    <!-- <img src="..." class="card-img-top" alt="..."> -->
+                    <img src="<?php echo $post['post'] ?>" alt="post" width="100px" height="200px">
+
+                    <div class="card-body">
+                        <h5 class="card-title">
+                        <?=$post['caption'];?><br>
+                        <?=$post['hashtag'];?>
+
+                        </h5>
+                        <a href="user_edit_post.php?post_id=<?= $post['id'] ?>" class="btn btn-primary">Edit</a>
+                        <a href="user_delete_post.php?post_id=<?= $post['id'] ?> " class="btn btn-danger btn-sm">Delete</a>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                <?php
+            }
+        } else {
+            echo "<h5> No Record Found </h5>";
+
+        }
+
+
+        ?>
+        </tbody>
         </table>
     </div>
     </div>
@@ -170,7 +174,7 @@ if(isset($_GET['id'])){
                 </div>
                 <div class="modal-body"> -->
 
-                    <!-- <form id="deleteForm" method="POST">
+    <!-- <form id="deleteForm" method="POST">
                         <input type="hidden" id="deleteId" name="deleteId">
                     </form>
                 </div>

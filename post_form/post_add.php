@@ -30,6 +30,7 @@ try {
 			// exit;
 			$result = mysqli_query($conn, $sql);
 			if($result){
+				
 				header('location:post_show.php');
 			}
 			

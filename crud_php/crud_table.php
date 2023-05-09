@@ -35,7 +35,7 @@ require 'db_connection_crud.php';
 <body>
   <div class="container mt-4">
     <?php
-    include('message_crud.php'); ?>
+    // include('message_crud.php'); ?>
 
 
     <div class="row">
@@ -87,11 +87,13 @@ require 'db_connection_crud.php';
                       <?= $student['course']; ?>
                     </td>
                     <td>
-                      <!-- <a href="" class="btn btn-info btn-sm">View</a> -->
+                      <a href="" class="btn btn-info btn-sm">View</a>
+
                       <a href="student_edit.php?id=<?= $student['id']; ?>" class="btn btn-info btn-sm">Edit</a>
-                      <form action="crud.php" method="POST" class="d-inline">
-                        <button type="submit" name="delete_student" value="<?= $student['id']; ?>"
-                          class="btn btn-danger btn-sm">Delete</=>
+                      <form action="" method="POST" class="d-inline">
+                        
+                      <button type="submit" name="delete_student" value="<?= $student['id']; ?>"
+                          class="btn btn-danger btn-sm">Delete</button>
 
                       </form>
 
@@ -127,11 +129,11 @@ require 'db_connection_crud.php';
 
 </body>
 
-              <script type="text/javascript">
+              <!-- <script type="text/javascript">
                 setTimeout(function () {
           
                   // Closing the alert
                   $('#alert').alert('close');
                 }, 3000);
-              </script>
+              </script> -->
 </html>
