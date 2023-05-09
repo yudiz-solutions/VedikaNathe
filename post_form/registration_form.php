@@ -65,6 +65,7 @@ if (isset($_POST['submit'])) {
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <title>USER REGISTRATION FORM</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 
 <html>
@@ -132,34 +133,34 @@ if (isset($_POST['submit'])) {
                     </div>
 
                 </div>
+                <?php
+                $query = "SELECT * FROM country Order by country_name";
+                $result = $conn->query($query);
+                ?>
+
 
                 <div class="mb-3">
 
                     <label for="country" class="form-label">Country</label>
 
-                    <select class="form-select" name="country" id="country">
-                        <option selected disabled>Select Country</option>
-                        <option value="INDIA">INDIA</option>
-                        <option value="USA">USA</option>
-                        <option value="Canada">Canada</option>
-                        <option value="UK">UK</option>
-                        <option value="Australia">Australia</option>
+                    <select class="form-control" name="country" id="country" onchange="FetchState(this.value)" required>
+                        <option value="">Select Country</option>
+                        <?php
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo '<option value=' . $row['id'] . '>' . $row['country_name'] . '</option>';
+                            }
+                        }
+                        ?>
                     </select>
-
-                    
                 </div>
 
                 <div class="mb-3">
 
                     <label for="state" class="form-label">State</label>
 
-                    <select class="form-select" name="state" id="state">
-                        <option selected disabled>Select State</option>
-                        <option value="Maharashtra">Maharashtra</option>
-                        <option value="New York">New York</option>
-                        <option value="California">California</option>
-                        <option value="Texas">Texas</option>
-                        <option value="Florida">Florida</option>
+                    <select class="form-control" name="state" id="state" onchange="FetchCity(this.value)" required>
+                        <option>Select State</option>
                     </select>
 
                 </div>
@@ -167,13 +168,8 @@ if (isset($_POST['submit'])) {
                 <div class="mb-3">
                     <label for="city" class="form-label">City</label>
 
-                    <select class="form-select" name="city" id="city">
-                        <option selected disabled>Select City</option>
-                        <option value="Amravati">Amravati</option>
-                        <option value="New York City">New York City</option>
-                        <option value="Los Angeles">Los Angeles</option>
-                        <option value="Houston">Houston</option>
-                        <option value="Miami">Miami</option>
+                    <select class="form-control" name="city" id="city">
+                        <option>Select City</option>
                     </select>
 
                 </div>
@@ -237,6 +233,36 @@ if (isset($_POST['submit'])) {
     </div>
 
     </div>
+    <script type="text/javascript">
+        function FetchState(id) {
+            $('#state').html('');
+            $('#city').html('<option>Select City</option>');
+            $.ajax({
+                type: 'post',
+                url: 'ajaxdata.php',
+                data: { country_id: id },
+                success: function (data) {
+                    $('#state').html(data);
+                }
+
+            })
+        }
+
+        function FetchCity(id) {
+            $('#city').html('');
+            $.ajax({
+                type: 'post',
+                url: 'ajaxdata.php',
+                data: { state_id: id },
+                success: function (data) {
+                    $('#city').html(data);
+                }
+
+            })
+        }
+
+
+    </script>
 </body>
 
 </html>
