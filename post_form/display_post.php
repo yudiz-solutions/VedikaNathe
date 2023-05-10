@@ -31,6 +31,21 @@ include 'db_post_form.php';
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
     </script>
     <title>Display All User Account</title>
+    <style>
+#action-btn {
+    display: flex;
+}
+a  {
+    margin-right: 3px;
+}
+.card-header{
+    margin-right: -31px;
+    margin-left: -74px;
+}
+.card-body{
+    margin-left: -92px;
+}
+        </style>
 </head>
 
 <body>
@@ -99,12 +114,12 @@ include 'db_post_form.php';
                                         <td>
                                             <?= $user['social_media']; ?>
                                         </td>
-                                        <td>
-                                            <a href="post_show.php?id=<?= $user['id']; ?>" class="btn btn-success btn-sm">View</a>
+                                        <td id = action-btn>
+                                            <a href="post_show.php?id=<?= $user['id']; ?>" class="btn btn-success btn-sm" class="text-light">View</a>
 
-                                            <a href="post_edit.php ?id=<?= $user['id']; ?>" class="btn btn-info btn-sm">Edit</a>
+                                            <a href="post_edit.php?id=<?= $user['id']; ?>" class="btn btn-info btn-sm" class="text-light">Edit</a>
 
-                                            <a href="post_delete.php?id=<?php echo $user['id'] ?>" class="btn btn-danger btn-sm">Delete</a>                                      
+                                            <a href="post_delete.php?id=<?php echo $user['id'] ?>" class="btn btn-danger btn-sm" class="text-light">Delete</a>                                      
                                           </td>
 
                                     </tr>

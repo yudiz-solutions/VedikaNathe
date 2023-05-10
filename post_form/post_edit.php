@@ -38,7 +38,7 @@ if (isset($_POST['update_account'])) {
 
     } else {
         echo "Student Not Updated";
-        
+
 
     }
 
@@ -61,6 +61,8 @@ if (isset($_POST['update_account'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
 
 
 
@@ -74,7 +76,7 @@ if (isset($_POST['update_account'])) {
             <div class="col-md-12">
                 <div class="card-header">
                     <h4>Account Edit
-                        
+
                     </h4>
                 </div>
             </div class="card-body">
@@ -147,29 +149,42 @@ if (isset($_POST['update_account'])) {
 
 
                         <div class="mb-3">
-                            <label>Country</label>
-                            <select class="form-select" name="country" id="country">
-                                <option selected disabled>Select Country</option>
-                                <option value="INDIA">INDIA</option>
-                                <option value="USA">USA</option>
-                                <option value="Canada">Canada</option>
-                                <option value="UK">UK</option>
-                                <option value="Australia">Australia</option>
+
+                            <label for="country" class="form-label">Country</label>
+
+                            <select class="form-control" name="country" id="country" onchange="FetchState(this.value)" required>
+                                <option value="">Select Country</option>
+                                <?php
+                                $result = mysqli_query($conn, "SELECT * FROM country");
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        $selected = ($row['id'] ==$user['country']) ? "selected" :"";
+                                        echo '<option value=' . $row['id'] .' '.$selected.'>' . $row['country_name'] . '</option>';
+                                    }
+                                }
+                                ?>
                             </select>
                         </div>
 
                         <div class="mb-3">
-                            <label for="city" class="form-label">City</label>
-                            <select class="form-select" name="city" id="city">
-                                <option selected disabled>Select City</option>
 
-                                <option value="Amravati">Amravati</option>
-                                <option value="New York City">New York City</option>
-                                <option value="Los Angeles">Los Angeles</option>
-                                <option value="Houston">Houston</option>
-                                <option value="Miami">Miami</option>
+                            <label for="state" class="form-label">State</label>
+
+                            <select class="form-control" name="state"  id="state" onchange="FetchCity(this.value)" required>
+                                <option>Select State</option>
                             </select>
+
                         </div>
+
+                        <div class="mb-3">
+                            <label for="city" class="form-label">City</label>
+
+                            <select class="form-control" name="city" id="city">
+                                <option>Select City</option>
+                            </select>
+
+                        </div>
+
 
                         <div class="mb-3">
                             <label>Bio</label>
@@ -223,7 +238,8 @@ if (isset($_POST['update_account'])) {
 
 
                         <div class="mb-3">
-                            <button type="submit" name="update_account" class="btn btn-primary"><a href="display_post.php" class="text-light" >Update Account</a></button>
+                            <button type="submit" name="update_account" class="btn btn-primary"><a href="display_post.php"
+                                    class="text-light">Update Account</a></button>
                         </div>
                     </form>
 
@@ -237,5 +253,48 @@ if (isset($_POST['update_account'])) {
         </div>
     </div>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#country').trigger('change');
+            
+        });
+        
+    
+    function FetchState(id) {
+            console.log(id)
+            // $('#state').html('');
+            // $('#city').html('<option>Select City</option>');
+            $.ajax({
+                type: 'post',
+                url: 'ajaxdata.php',
+                data: { country_id: id ,
+                        state_id : "<?= $user['state']?>" 
+                        },
+                success: function (data) {
+                    $('#state').html(data);
+                    $('#state').trigger('change');
+                }
+
+            });
+        }
+
+        function FetchCity(id) {
+          
+            $('#city').html('');
+
+            $.ajax({
+                type: 'post',
+                url: 'ajaxdata.php',
+                data: { state_id: id ,city_id :"<?= $user['city']?>" },
+                success: function (data) {
+                    $('#city').html(data);
+                }
+
+            })
+        }
+
+
+    </script>
 </body>
+
 </html>

@@ -148,7 +148,7 @@ if (isset($_POST['submit'])) {
                         <?php
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                echo '<option value=' . $row['id'] . '>' . $row['country_name'] . '</option>';
+                                echo '<option value=' . $row['id'].'>'.$row['country_name'].'</option>';
                             }
                         }
                         ?>
@@ -242,6 +242,7 @@ if (isset($_POST['submit'])) {
                 url: 'ajaxdata.php',
                 data: { country_id: id },
                 success: function (data) {
+                    console.log(data);
                     $('#state').html(data);
                 }
 
@@ -250,6 +251,7 @@ if (isset($_POST['submit'])) {
 
         function FetchCity(id) {
             $('#city').html('');
+            
             $.ajax({
                 type: 'post',
                 url: 'ajaxdata.php',
