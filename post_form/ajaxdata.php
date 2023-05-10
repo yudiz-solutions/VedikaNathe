@@ -19,7 +19,7 @@ if (isset($_POST['country_id'])) {
     print_r($result);
 	if ($result->num_rows > 0 ) {
 			echo '<option value="">Select City</option>';
-            die();
+           // die();
 		 while ($row = $result->fetch_assoc()) {
 		 	echo '<option value='.$row['id'].'>'.$row['city_name'].'</option>';
 		 }
