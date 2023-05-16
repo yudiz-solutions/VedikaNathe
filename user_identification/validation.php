@@ -25,10 +25,9 @@ $firstname = $username = $lastname = $password = $confirm_password = $email = $d
     } else {
       $firstname = test_input($_POST["firstname"]);
       if (!preg_match("/^[a-zA-Z ]*$/", $firstname)) {
-        $result ['firstname'] = "Only letters and white space allowed";
+        $firstnameErr = "Only letters and white space allowed";
       }
     }
-    //  = $firstnameErr ?? '';
 
     if (empty($_POST["username"])) {
       $usernameErr = "Username is required";
@@ -38,7 +37,6 @@ $firstname = $username = $lastname = $password = $confirm_password = $email = $d
         $usernameErr = "Only letters and numbers allowed";
       }
     }
-    $result ['username'] = $usernameErr ?? '';
 
 
     if (empty($_POST["lastname"])) {
@@ -49,7 +47,6 @@ $firstname = $username = $lastname = $password = $confirm_password = $email = $d
        $lastnameErr = "Only letters and white space allowed";
       }
     }
-    $result ['lastname'] = $lastnameErr ?? '';
 
 
     if (empty($_POST["password"])) {
@@ -60,7 +57,6 @@ $firstname = $username = $lastname = $password = $confirm_password = $email = $d
         $passwordErr = "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number";
       }
     }
-    $_SESSION['password'] = $passwordErr ?? '';
 
     
     if (empty($_POST["confirm_password"])) {
@@ -71,7 +67,6 @@ $firstname = $username = $lastname = $password = $confirm_password = $email = $d
         $confirm_passwordErr = "Passwords do not match";
       }
     }
-    $_SESSION['confirm_password'] = $confirm_passwordErr ?? '';
 
     
     if (empty($_POST["email"])) {
@@ -82,7 +77,6 @@ $firstname = $username = $lastname = $password = $confirm_password = $email = $d
         $emailErr = "Invalid email format";
       }
     }
-    $_SESSION['email'] = $emailErr ?? '';
 
       
       $email_check_query = "SELECT * FROM registration WHERE email='$email' LIMIT 1";

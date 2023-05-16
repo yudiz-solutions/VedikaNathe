@@ -28,7 +28,7 @@
             <div class="card-header">
                 <h4>USER REGISTRATION FORM</h4>
                 
-                <a href="dashboard.php" class="btn btn-primary">View Accounts</a>
+                <a href="index.php" class="btn btn-primary">Login Accounts</a>
             </div>
         </div>
     </div>
@@ -47,64 +47,37 @@
                 <div class="mb-3">
                     <label for="first-name">First Name*</label>
                     <input type="text" class="form-control" id="firstname" name="firstname">
-
-                    <span class="error text-danger" id="first-name-error">
-                        <?php if (isset($_SESSION["firstname"])) {
-                            echo $_SESSION['firstname'];
-                        } ?>
-                    </span>
+                    <span class="error text-danger"></span>
+                    
+                </div>
+                <div class="mb-3">
+                    <label for="last-name">Last Name*</label>
+                    <input type="text" class="form-control" id="lastname" name="lastname">
+                    <span class="error text-danger"></span>
                 </div>
 
                 <div class="mb-3" class="form-group">
                     <label for="username">Username*</label>
                     <input type="text" class="form-control" id="username" name="username">
-
-                    <span class="error text-danger" id="user-name-error">
-                        <?php if (isset($_SESSION["username"])) {
-                            echo $_SESSION["username"];
-                        } ?>
-                    </span>
-                </div>
-
-                <div class="mb-3">
-                    <label for="last-name">Last Name*</label>
-                    <input type="text" class="form-control" id="lastname" name="lastname">
-                    <span class="error text-danger" id="last-name-error">
-                        <?php if (isset($_SESSION["lastname"])) {
-                            echo $_SESSION["lastname"];
-                        } ?>
-                    </span>
+                    <span class="error text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label for="email">Email Address*</label>
                     <input type="email" class="form-control" id="email" name="email">
-                    <!-- <div id="email-error"></div> -->
-                    <span class="error text-danger" id="email-error">
-                        <?php if (isset($_SESSION["email"])) {
-                            echo $_SESSION["email"];
-                        } ?>
-                    </span>
+                    <span class="error text-danger"></span>                    
                 </div>
 
                 <div class="mb-3">
                     <label for="password">Password*</label>
                     <input type="password" class="form-control" id="password" name="password">
-                    <span class="error text-danger" id="password-error">
-                        <?php if (isset($_SESSION["password"])) {
-                            echo $_SESSION["password"];
-                        } ?>
-                    </span>
+                    <span class="error text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label for="confirm-password">Confirm Password*</label>
                     <input type="password" class="form-control" id="confirm-password" name="confirm_password">
-                    <span class="error text-danger" id="confirm-password-error">
-                        <?php if (isset($_SESSION["confirm_password"])) {
-                            echo $_SESSION["confirm_password"];
-                        } ?>
-                    </span>
+                    <span class="error text-danger"></span>
                 </div>
 
                 <div class="mb-3">
@@ -211,62 +184,62 @@
                 var profile_image = $("#profile-image")[0].files[0];
                 // perform client-side validation
 
-                // if (firstname.trim() == "") {
-                //     $("#first-name-error").text("Please enter your first name.");
-                //     return false;
-                // } else {
-                //     $("#first-name-error").text("");
-                // }
+                if (firstname.trim() == "") {
+                    $("#first-name-error").text("Please enter your first name.");
+                    return false;
+                } else {
+                    $("#first-name-error").text("");
+                }
 
-                // if (username.trim() == "") {
-                //     $("#user-name-error").text("Please enter a username.");
-                //     return false;
-                // } else {
-                //     $("#user-name-error").text("");
-                // }
+                if (username.trim() == "") {
+                    $("#user-name-error").text("Please enter a username.");
+                    return false;
+                } else {
+                    $("#user-name-error").text("");
+                }
 
-                // if (lastname.trim() == "") {
-                //     $("#last-name-error").text("Please enter your last name.");
-                //     return false;
-                // } else {
-                //     $("#last-name-error").text("");
-                // }
+                if (lastname.trim() == "") {
+                    $("#last-name-error").text("Please enter your last name.");
+                    return false;
+                } else {
+                    $("#last-name-error").text("");
+                }
 
 
-                // if (email.trim() == "") {
-                //     $("#email-error").text("Please enter your email.");
-                //     return false;
-                // } else {
-                //     $("#email-error").text("");
-                // }
+                if (email.trim() == "") {
+                    $("#email-error").text("Please enter your email.");
+                    return false;
+                } else {
+                    $("#email-error").text("");
+                }
 
-                // if (!isValidEmail(email)) {
-                //     $("#email-error").text("Please enter a valid email address.");
-                //     return false;
-                // } else {
-                //     $("#email-error").text("");
-                // }
+                if (!isValidEmail(email)) {
+                    $("#email-error").text("Please enter a valid email address.");
+                    return false;
+                } else {
+                    $("#email-error").text("");
+                }
 
-                // if (password.trim() == "") {
-                //     $("#password-error").text("Please enter a password.");
-                //     return false;
-                // } else {
-                //     $("#password-error").text("");
-                // }
+                if (password.trim() == "") {
+                    $("#password-error").text("Please enter a password.");
+                    return false;
+                } else {
+                    $("#password-error").text("");
+                }
 
-                // if (confirm_password.trim() == "") {
-                //     $("#confirm-password-error").text("Please confirm your password.");
-                //     return false;
-                // } else {
-                //     $("#confirm-password-error").text("");
-                // }
+                if (confirm_password.trim() == "") {
+                    $("#confirm-password-error").text("Please confirm your password.");
+                    return false;
+                } else {
+                    $("#confirm-password-error").text("");
+                }
 
-                // if (password != confirm_password) {
-                //     $("#confirm-password-error").text("Passwords do not match.");
-                //     return false;
-                // } else {
-                //     $("#confirm-password-error").text("");
-                // }
+                if (password != confirm_password) {
+                    $("#confirm-password-error").text("Passwords do not match.");
+                    return false;
+                } else {
+                    $("#confirm-password-error").text("");
+                }
 
                 // if (dob.trim() == "") {
                 //     $("#dob-error").text("Please enter your date of birth.");
@@ -320,14 +293,16 @@
                     data : formData,
                     success: function (response) {
 
-                        var obj = JSON.parse(response);                       
-                        
+                        var obj = JSON.parse(response);   
+                        console.log(obj)
                         var error = '';
-                        $.each( obj.message, function( index, value ){
-                            error += '<p>'+value+'</p>';
+                        $.each( obj, function( input_id, error_message ){
+                            console.log(input_id)
+                            $("#"+input_id).next().html(error_message);
+                           // error += '<p >'+value+'</p>';
                         });
                        
-                        $("#form_message").html(error);
+                        //$("#form_message").html(error);
                         
                      
                         $('#registration-form').trigger('reset');

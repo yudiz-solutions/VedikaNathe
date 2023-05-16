@@ -125,8 +125,7 @@ if(!isset($_SESSION['username'])){
                                             <a href="edit.php?id=<?= $user['id']; ?>" class="btn btn-info btn-sm"
                                                 class="text-light">Edit</a>
 
-                                            <a href="delete.php?delete_id=<?php echo $user['id'] ?>" class="btn btn-danger btn-sm"
-                                                class="text-light">Delete</a>
+                                                <td><button class="btn btn-danger btn-sm remove">Delete</button></td>
                                         </td>
 
                                     </tr>
@@ -151,12 +150,31 @@ if(!isset($_SESSION['username'])){
         </div>
 
     </div>
-
-
-
-
-
-
 </body>
+<script type="text/javascript">
+    $(".remove").click(function(){
+        var id = $(this).parents("tr").attr("id");
+
+
+        if(confirm('Are you sure to remove this record ?'))
+        {
+            $.ajax({
+               url: '/delete.php',
+               type: 'GET',
+               data: {id: id},
+               error: function() {
+                  alert('Something is wrong');
+               },
+               success: function(data) {
+                    $("#"+id).remove();
+                    alert("Record removed successfully");  
+               }
+            });
+        }
+    });
+
+
+</script>
+
 
 </html>

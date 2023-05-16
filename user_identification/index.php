@@ -19,6 +19,15 @@ if(isset($_POST['submit'])){
         $errors["email"] = "Please enter email"; 
     }
 
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+        $errors['email'] = "Invalid email format";
+    }
+
+    if($password == "") {
+        $errors['password'] = "Please enter password";
+    }
+
+    
 
 
     if (empty($errors)) {
@@ -85,7 +94,12 @@ if(isset($_POST['submit'])){
                     <div class="form-group">
                         <label>Password:</label>
                         <input type="password" id="password" name="password" class="form-control">
-                        <span id="password-error" class="text-danger"></span>
+                        <!-- <span id="password-error" class="text-danger"></span> -->
+                        <?php 
+                            if (isset($errors['password'])) {
+                                echo '<span id="password-error" class="text-danger">'.$errors['password'].'</span>';
+                            }
+                        ?>
                     </div>
                     <br>
                     <div class="form-group">

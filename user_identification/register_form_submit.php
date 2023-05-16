@@ -1,7 +1,7 @@
 <?php
 include 'database.php';
 
-include 'validation.php';
+// include 'validation.php';
 
 
 $result  = array();
@@ -35,33 +35,33 @@ $result  = array();
 
     if( empty($firstname)){
         $has_error = true;
-        $result['message'][] = 'Please enter first name';
+        $result['firstname'][] = 'Please enter first name';
     }
 
     if( empty($lastname)){
         $has_error = true;
-        $result['message'][] = 'Please enter last name';
+        $result['lastname'][] = 'Please enter last name';
     }
     if( empty($email)){
         $has_error = true;
-        $result['message'][] = 'Please enter email';
+        $result['email'][] = 'Please enter email';
     }
     if( empty($username)){
         $has_error = true;
-        $result['message'][] = 'Please enter username';
+        $result['username'][] = 'Please enter username';
     }
-    if( empty($password)){
+    if( empty($_POST['password'])){
         $has_error = true;
-        $result['message'][] = 'Please enter password';
+        $result['password'][] = 'Please enter password';
     }
-    if( empty($_POST['confirm_password'])){
+    if( empty($confirm_password)){
         $has_error = true;
-        $result['message'][] = 'Please enter confirm password';
+        $result['confirm-password'][] = 'Please enter confirm password';
     }
 
     if( $_POST['password'] !=  $_POST['confirm_password']){
         $has_error = true; 
-        $result['message'][] = 'Pasword and confirm password doent matech';
+        $result['confirm_password'][] = 'Password and confirm password doesnt match';
     }
 
     if( !$has_error){
