@@ -3,37 +3,56 @@ session_start();
 include 'database.php';
 error_reporting(0);
 
-if (isset($_SESSION['username'])) {
+// echo "sdfsddfsdf";
+
+
+if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
 	header("location:dashboard.php");
 }
 if(isset($_POST['submit'])){
     
     $email=$_POST['email'];
     $password=$_POST['password'];
-   
-     $sql="SELECT * FROM `registration` WHERE email='$email' ";
 
-    $result = mysqli_query($conn, $sql);
-    
-    if($result->num_rows >0){
-        $row = mysqli_fetch_assoc($result);
-        // echo $_POST['password'];
-        // die;
-        if(password_verify($_POST['password'],$row['password'])){
-            
-            $_SESSION['username']=$row['username'];
-            
-            header("location:dashboard.php");
-            // echo 'hello';
+    $errors = [];
+    if ($email == "") {
+        $errors["email"] = "Please enter email"; 
+    }
+
+
+
+    if (empty($errors)) {
+
+        $sql="SELECT * FROM `registration` WHERE email='$email' ";
+
+        $result = mysqli_query($conn, $sql);
+        
+        if($result->num_rows >0){
+            $row = mysqli_fetch_assoc($result);
+            // echo $_POST['password'];
             // die;
+            if(password_verify($_POST['password'],$row['password'])){
+                
+                $_SESSION['username']= $row['username'];
+                
+                header("location:dashboard.php");
+                // echo 'hello';
+                // die;
+            }else{
+                $errors["pass"] = "pass not match";
+             
+            }
+            
         }else{
-        echo"<script>alert('Invalid Useid or email or password')</script>";
-
+            // echo"<script>alert('Invalid Useid or email or password')</script>";
+            $errors["nouser"] = "no user found";
         }
 
     }else{
-        echo"<script>alert('Invalid Useid or email or password')</script>";
+
     }
+   
+   
 }
 ?>
 <!DOCTYPE html>
@@ -56,7 +75,12 @@ if(isset($_POST['submit'])){
                     <div class="form-group">
                         <label>Email:</label>
                         <input type="email" id="email" name="email" class="form-control">
-                        <span id="email-error" class="text-danger"></span>
+                        <!-- <span id="email-error" class="text-danger"></span> -->
+                        <?php 
+                            if (isset($errors['email'])) {
+                                echo '<span id="email-error" class="text-danger">'.$errors['email'].'</span>';
+                            }
+                        ?>
                     </div>
                     <div class="form-group">
                         <label>Password:</label>

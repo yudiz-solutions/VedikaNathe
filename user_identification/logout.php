@@ -1,5 +1,8 @@
 <?php
 session_start();
 session_destroy();
-header("location: login.php");
+
+// echo "test";
+// exit;
+header("location: index.php");
 ?>

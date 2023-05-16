@@ -25,10 +25,10 @@ $firstname = $username = $lastname = $password = $confirm_password = $email = $d
     } else {
       $firstname = test_input($_POST["firstname"]);
       if (!preg_match("/^[a-zA-Z ]*$/", $firstname)) {
-        $firstnameErr = "Only letters and white space allowed";
+        $result ['firstname'] = "Only letters and white space allowed";
       }
     }
-    $_SESSION['firstname'] = $firstnameErr ?? '';
+    //  = $firstnameErr ?? '';
 
     if (empty($_POST["username"])) {
       $usernameErr = "Username is required";
@@ -38,7 +38,7 @@ $firstname = $username = $lastname = $password = $confirm_password = $email = $d
         $usernameErr = "Only letters and numbers allowed";
       }
     }
-    $_SESSION['username'] = $usernameErr ?? '';
+    $result ['username'] = $usernameErr ?? '';
 
 
     if (empty($_POST["lastname"])) {
@@ -49,7 +49,7 @@ $firstname = $username = $lastname = $password = $confirm_password = $email = $d
        $lastnameErr = "Only letters and white space allowed";
       }
     }
-    $_SESSION['lastname'] = $lastnameErr ?? '';
+    $result ['lastname'] = $lastnameErr ?? '';
 
 
     if (empty($_POST["password"])) {

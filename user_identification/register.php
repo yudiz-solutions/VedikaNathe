@@ -34,6 +34,10 @@
     </div>
 
     <div class="row">
+        <div class="col-md-12" id="form_message"></div>
+    </div>
+
+    <div class="row">
         <div class="col-md-6">
 
             <form id="registration-form" method="post" enctype="multipart/form-data">
@@ -193,69 +197,76 @@
                 var password = $("#password").val();
                 var confirm_password = $("#confirm-password").val();
                 var dob = $("#dob").val();
-                var hobby = $('input[name="hobby[]"]:checked').serialize();
+               // var hobby = $('input[name="hobby[]"]:checked').val();
+
+               var hobby = "";
+               $('input[name="hobby[]"]:checked').each(function () {
+                hobby += $(this).val()+',';
+                });
+                console.log (hobby);
+                
                 var gender = $("input[name='gender']:checked").val();
                 var country = $('#country option:selected').val();
                 var message = $("#message").val();
                 var profile_image = $("#profile-image")[0].files[0];
                 // perform client-side validation
 
-                if (firstname.trim() == "") {
-                    $("#first-name-error").text("Please enter your first name.");
-                    return false;
-                } else {
-                    $("#first-name-error").text("");
-                }
+                // if (firstname.trim() == "") {
+                //     $("#first-name-error").text("Please enter your first name.");
+                //     return false;
+                // } else {
+                //     $("#first-name-error").text("");
+                // }
 
-                if (username.trim() == "") {
-                    $("#user-name-error").text("Please enter a username.");
-                    return false;
-                } else {
-                    $("#user-name-error").text("");
-                }
+                // if (username.trim() == "") {
+                //     $("#user-name-error").text("Please enter a username.");
+                //     return false;
+                // } else {
+                //     $("#user-name-error").text("");
+                // }
 
-                if (lastname.trim() == "") {
-                    $("#last-name-error").text("Please enter your last name.");
-                    return false;
-                } else {
-                    $("#last-name-error").text("");
-                }
+                // if (lastname.trim() == "") {
+                //     $("#last-name-error").text("Please enter your last name.");
+                //     return false;
+                // } else {
+                //     $("#last-name-error").text("");
+                // }
 
 
-                if (email.trim() == "") {
-                    $("#email-error").text("Please enter your email.");
-                    return false;
-                } else {
-                    $("#email-error").text("");
-                }
+                // if (email.trim() == "") {
+                //     $("#email-error").text("Please enter your email.");
+                //     return false;
+                // } else {
+                //     $("#email-error").text("");
+                // }
 
-                if (!isValidEmail(email)) {
-                    $("#email-error").text("Please enter a valid email address.");
-                    return false;
-                } else {
-                    $("#email-error").text("");
-                }
+                // if (!isValidEmail(email)) {
+                //     $("#email-error").text("Please enter a valid email address.");
+                //     return false;
+                // } else {
+                //     $("#email-error").text("");
+                // }
 
-                if (password.trim() == "") {
-                    $("#password-error").text("Please enter a password.");
-                    return false;
-                } else {
-                    $("#password-error").text("");
-                }
+                // if (password.trim() == "") {
+                //     $("#password-error").text("Please enter a password.");
+                //     return false;
+                // } else {
+                //     $("#password-error").text("");
+                // }
 
-                if (confirm_password.trim() == "") {
-                    $("#confirm-password-error").text("Please confirm your password.");
-                    return false;
-                } else {
-                    $("#confirm-password-error").text("");
-                }
+                // if (confirm_password.trim() == "") {
+                //     $("#confirm-password-error").text("Please confirm your password.");
+                //     return false;
+                // } else {
+                //     $("#confirm-password-error").text("");
+                // }
 
-                if (password != confirm_password) {
-                    $("#confirm-password-error").text("Passwords do not match.");
-                    return false;
-                } else {
-                    $("#confirm-password-error").text("");
-                }
+                // if (password != confirm_password) {
+                //     $("#confirm-password-error").text("Passwords do not match.");
+                //     return false;
+                // } else {
+                //     $("#confirm-password-error").text("");
+                // }
 
                 // if (dob.trim() == "") {
                 //     $("#dob-error").text("Please enter your date of birth.");
@@ -292,7 +303,7 @@
                             formData.append("lastname", lastname);
                             formData.append("email", email);
                             formData.append("password", password);
-                            formData.append("confirm_password", confirm - password);
+                            formData.append("confirm_password", confirm_password);
                             formData.append("dob", dob);
                             formData.append("hobby", hobby);
                             formData.append("gender", gender);
@@ -308,8 +319,17 @@
                     contentType: false,
                     data : formData,
                     success: function (response) {
-                        console.log(response);
-                        alert(response);
+
+                        var obj = JSON.parse(response);                       
+                        
+                        var error = '';
+                        $.each( obj.message, function( index, value ){
+                            error += '<p>'+value+'</p>';
+                        });
+                       
+                        $("#form_message").html(error);
+                        
+                     
                         $('#registration-form').trigger('reset');
                     },
                     error: function () {
