@@ -4,18 +4,18 @@ require 'database.php';
 
 if (isset($_POST['update_account'])) {
 
-    $user_id = mysqli_real_escape_string($conn, $_POST['edit_id']);
+    $user_id = $_GET['id'];
 
     $firstname = mysqli_real_escape_string($conn, $_POST['firstname']);
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $lastname = mysqli_real_escape_string($conn, $_POST['lastname']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
-    $confirm_password = mysqli_real_escape_string($conn, $_POST['conform_password']);
+    // $confirm_password = mysqli_real_escape_string($conn, $_POST['conform_password']);
 
     $dob = mysqli_real_escape_string($conn, $_POST['dob']);
 
-    $hobby = mysqli_real_escape_string($conn, $_POST['hobby']);
+    $hobby_temp = mysqli_real_escape_string($conn, $_POST['hobby']);
 
     $gender = mysqli_real_escape_string($conn, $_POST['gender']);
 
@@ -23,11 +23,15 @@ if (isset($_POST['update_account'])) {
 
     $message = mysqli_real_escape_string($conn, $_POST['message']);
 
-    $profile_image = mysqli_real_escape_string($conn, $_POST['$profile_image']);
+    // $profile_image = mysqli_real_escape_string($conn, $_POST['$profile_image']);
+    $profile_image = $_FILES['profile_image']['name'];
+    $image_tmp = $_FILES['profile_image']['tmp_name'];
+    $file = "uploads/" . $profile_image;
+    move_uploaded_file($image_tmp, $file);
 
 
-    $query = "UPDATE `registration` SET `firstname` = '$firstname', `username` = '$username', `lastname` = '$lastname', `email` = '$email', `password` = '$password', `confirm_password` = '$confirm_password', `dob` = '$dob', `hobby` = '$hobby', `gender` = '$gender', `country` = '$country', `message` = '$message', `profile_image` = '$profile_image' WHERE `registration`.`id` = $user_id";
 
+    $query = "UPDATE `registration` SET `firstname` = '$firstname', `username` = '$username', `lastname` = '$lastname', `email` = '$email', `password` = '$password', `dob` = '$dob', `hobby` = '$hobby_temp', `gender` = '$gender', `country` = '$country', `message` = '$message', `profile_image` = '$file' WHERE `registration`.`id` = $user_id";
     $query_run = mysqli_query($conn, $query);
 
     if ($query_run) {
@@ -42,10 +46,7 @@ if (isset($_POST['update_account'])) {
     }
 
 }
-
 ?>
-
-
 
 <!doctype html>
 <html lang="en">
@@ -81,9 +82,9 @@ if (isset($_POST['update_account'])) {
                 </div>
             </div class="card-body">
             <?php
-            if (isset($_GET['edit_id'])) {
+            if (isset($_GET['id'])) {
 
-                $user_id = mysqli_real_escape_string($conn, $_GET['edit_id']);
+                $user_id = $_GET['id'];
 
                 $query = "SELECT * FROM registration WHERE id='$user_id' ";
 
@@ -92,8 +93,7 @@ if (isset($_POST['update_account'])) {
                 if (mysqli_num_rows($query_run) > 0) {
                     $user = mysqli_fetch_array($query_run);
                     ?>
-                    <form method="POST"  enctype="multipart/form-data">
-                        <input type="hidden" name="id" value="<?= $user['id']; ?>">
+                    <form method="POST" enctype="multipart/form-data">
 
 
                         <div class="mb-3">
@@ -122,11 +122,7 @@ if (isset($_POST['update_account'])) {
                             <input type="password" class="form-control" id="password" name="password" value="<?= $user['password']; ?>">
                         </div>
 
-                        <div class="mb-3">
-                            <label for="confirm-password">Confirm Password*</label>
-                            <input type="password" class="form-control" id="confirm-password" name="confirm_password" value="<?= $user['confirm_password']; ?>">
-                        </div>
-
+                        
                         <div class="mb-3">
                             <label for="dob">Date of Birth</label>
                             <input type="date" class="form-control" id="dob" name="dob" value="<?= $user['dob']; ?>">
@@ -200,8 +196,7 @@ if (isset($_POST['update_account'])) {
                         </div>
 
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-primary" name="update_account"><a href="dashboard.php"
-                                    class="text-light">Update Account</a></button>
+                            <button type="submit" class="btn btn-primary" name="update_account">update</button>
                         </div>
                     </form>
                 </div>

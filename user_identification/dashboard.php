@@ -1,11 +1,11 @@
 <?php
 
 include 'database.php';
-// session_start();
+ session_start();
 
-// if(!isset($_SESSION['email'])){
-//     header("Location:login.php");
-// }
+if(!isset($_SESSION['username'])){
+    header("Location:login.php");
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -122,7 +122,7 @@ include 'database.php';
 
                                         <td id=action-btn>
 
-                                            <a href="edit.php?edit_id=<?= $user['id']; ?>" class="btn btn-info btn-sm"
+                                            <a href="edit.php?id=<?= $user['id']; ?>" class="btn btn-info btn-sm"
                                                 class="text-light">Edit</a>
 
                                             <a href="delete.php?delete_id=<?php echo $user['id'] ?>" class="btn btn-danger btn-sm"

@@ -1,5 +1,3 @@
-
-
 <!doctype html>
 <html lang="en">
 
@@ -13,10 +11,12 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <title>USER REGISTRATION FORM</title>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 
 <html>
@@ -27,7 +27,7 @@
         <div class="col-md-12">
             <div class="card-header">
                 <h4>USER REGISTRATION FORM</h4>
-                <br>
+                
                 <a href="dashboard.php" class="btn btn-primary">View Accounts</a>
             </div>
         </div>
@@ -36,17 +36,13 @@
     <div class="row">
         <div class="col-md-6">
 
-
             <form id="registration-form" method="post" enctype="multipart/form-data">
 
-                
-                <div class="mb-3">
+                <div class="mb-3"></div>
 
-                </div>
                 <div class="mb-3">
                     <label for="first-name">First Name*</label>
                     <input type="text" class="form-control" id="firstname" name="firstname">
-                    <!-- <span class="text-danger" id="first-name-error">  </span> -->
 
                     <span class="error text-danger" id="first-name-error">
                         <?php if (isset($_SESSION["firstname"])) {
@@ -79,7 +75,7 @@
                 <div class="mb-3">
                     <label for="email">Email Address*</label>
                     <input type="email" class="form-control" id="email" name="email">
-                    <div id="email-error"></div>
+                    <!-- <div id="email-error"></div> -->
                     <span class="error text-danger" id="email-error">
                         <?php if (isset($_SESSION["email"])) {
                             echo $_SESSION["email"];
@@ -286,7 +282,7 @@
                     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                     return emailRegex.test(email);
                 }
-                console.log('all');
+                // console.log('all');
                 // perform validation
 
                 var formData = new FormData();

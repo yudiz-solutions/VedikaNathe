@@ -3,24 +3,34 @@ session_start();
 include 'database.php';
 error_reporting(0);
 
-// if (isset($_SESSION['username'])) {
-// 	header("location:dashboard.php");
-// }
+if (isset($_SESSION['username'])) {
+	header("location:dashboard.php");
+}
 if(isset($_POST['submit'])){
     
     $email=$_POST['email'];
     $password=$_POST['password'];
    
-    $sql="SELECT * FROM `registration` WHERE email='$email' AND password= '$password'";
-    // echo $sql;
-    // die;
+     $sql="SELECT * FROM `registration` WHERE email='$email' ";
+
     $result = mysqli_query($conn, $sql);
+    
     if($result->num_rows >0){
-    $row = mysqli_fetch_assoc($result);
+        $row = mysqli_fetch_assoc($result);
+        // echo $_POST['password'];
+        // die;
+        if(password_verify($_POST['password'],$row['password'])){
+            
+            $_SESSION['username']=$row['username'];
+            
+            header("location:dashboard.php");
+            // echo 'hello';
+            // die;
+        }else{
+        echo"<script>alert('Invalid Useid or email or password')</script>";
 
-        $_SESSION['username']=$row['username'];
+        }
 
-         header("location:dashboard.php");
     }else{
         echo"<script>alert('Invalid Useid or email or password')</script>";
     }
