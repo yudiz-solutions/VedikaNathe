@@ -82,7 +82,6 @@ $firstname = $username = $lastname = $password = $confirm_password = $email = $d
       $email_check_query = "SELECT * FROM registration WHERE email='$email' LIMIT 1";
       $result = mysqli_query($conn, $email_check_query);
       $user = mysqli_fetch_assoc($result);
-      //  $user=false;
      
       if ($user) {
         if ($user['email'] === $email) {
@@ -91,11 +90,7 @@ $firstname = $username = $lastname = $password = $confirm_password = $email = $d
         if ($user['password'] === $password) {
           $passwordErr = "Password already exists";
         }
-        // die('if');
       } 
       // -------------------------validation complete-----------------------
-        // die('else');
-        // var_dump($_FILES);
-        // die
     }
 ?>

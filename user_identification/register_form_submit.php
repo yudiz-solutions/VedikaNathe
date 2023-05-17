@@ -5,22 +5,28 @@ include 'database.php';
 
 
 $result  = array();
-// ====form 
 
     $firstname = isset($_POST['firstname']) ? $_POST['firstname'] : '';
+
     $username = isset($_POST['username']) ? $_POST['username'] :'';
+
     $lastname = isset($_POST['lastname']) ? $_POST['lastname'] : '';
 
-    // $password = $_POST['password'];
     $password  = password_hash($_POST['password'], PASSWORD_DEFAULT);
-     $confirm_password = $_POST['confirm_password'];
-    $email = isset($_POST['email']) ? $_POST['email'] : '';
-    $dob = isset($_POST["dob"]) ? $_POST["dob"] : '';
-    $hobby_temp = isset($_POST["hobby"]) ?rtrim( $_POST["hobby"],',') : '';
 
+    $confirm_password = $_POST['confirm_password'];
+
+    $email = isset($_POST['email']) ? $_POST['email'] : '';
+
+    $dob = isset($_POST["dob"]) ? $_POST["dob"] : '';
+
+    $hobby_temp = isset($_POST["hobby"]) ?rtrim( $_POST["hobby"],',') : '';
     //$hobby_temp = implode(',', $hobby);
+
     $gender = isset($_POST["gender"]) ? $_POST["gender"] : '';
+
     $country = isset($_POST["country"]) ? $_POST["country"] : '';
+
     $message = isset($_POST["message"]) ? $_POST["message"] : '';
 
     $profile_image = isset($_FILES['profile_image']['name']) ? $_FILES['profile_image']['name'] : '';
@@ -82,6 +88,4 @@ $result  = array();
     }
     echo json_encode($result);
 
-
-    
 ?>

@@ -3,12 +3,10 @@ session_start();
 include 'database.php';
 error_reporting(0);
 
-// echo "sdfsddfsdf";
-
-
 if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
 	header("location:dashboard.php");
 }
+
 if(isset($_POST['submit'])){
     
     $email=$_POST['email'];
@@ -27,41 +25,33 @@ if(isset($_POST['submit'])){
         $errors['password'] = "Please enter password";
     }
 
-    
-
-
     if (empty($errors)) {
 
         $sql="SELECT * FROM `registration` WHERE email='$email' ";
-
+        echo $sql;
         $result = mysqli_query($conn, $sql);
-        
+       
         if($result->num_rows >0){
             $row = mysqli_fetch_assoc($result);
+            var_dump($row);
+            
             // echo $_POST['password'];
             // die;
+
             if(password_verify($_POST['password'],$row['password'])){
                 
                 $_SESSION['username']= $row['username'];
-                
                 header("location:dashboard.php");
                 // echo 'hello';
                 // die;
             }else{
                 $errors["pass"] = "pass not match";
-             
             }
             
         }else{
-            // echo"<script>alert('Invalid Useid or email or password')</script>";
             $errors["nouser"] = "no user found";
         }
-
-    }else{
-
     }
-   
-   
 }
 ?>
 <!DOCTYPE html>
@@ -81,20 +71,20 @@ if(isset($_POST['submit'])){
             <div class="col-md-6">
                 <h1 class="text-center mb-4">Login Page</h1>
                 <form id="login_form" method="POST">
+
                     <div class="form-group">
                         <label>Email:</label>
                         <input type="email" id="email" name="email" class="form-control">
-                        <!-- <span id="email-error" class="text-danger"></span> -->
                         <?php 
                             if (isset($errors['email'])) {
                                 echo '<span id="email-error" class="text-danger">'.$errors['email'].'</span>';
                             }
                         ?>
                     </div>
+
                     <div class="form-group">
                         <label>Password:</label>
                         <input type="password" id="password" name="password" class="form-control">
-                        <!-- <span id="password-error" class="text-danger"></span> -->
                         <?php 
                             if (isset($errors['password'])) {
                                 echo '<span id="password-error" class="text-danger">'.$errors['password'].'</span>';
@@ -102,18 +92,17 @@ if(isset($_POST['submit'])){
                         ?>
                     </div>
                     <br>
+
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-block" name="submit">Login</button>
                     </div>
+
                     <span id="login_error" class="text-danger"></span>
+
                 </form>
                 <p>Don't have an account? <a href="register.php">Sign up</a></p>
-
             </div>
         </div>
     </div>
-
-
 </body>
-
 </html>
