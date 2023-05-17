@@ -17,12 +17,12 @@ if(isset($_POST['submit'])){
     $errors = [];
     if ($email == "") {
         $errors["email"] = "Please enter email"; 
+    }else{
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+            $errors['email'] = "Invalid email format";
+        }
     }
-
-    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-        $errors['email'] = "Invalid email format";
-    }
-
+    
     if($password == "") {
         $errors['password'] = "Please enter password";
     }

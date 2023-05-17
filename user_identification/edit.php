@@ -72,7 +72,7 @@ if (isset($_POST['update_account'])) {
 </head>
 
 <body>
-    <div class="container mt-5">
+    <div class="container mt-5" style="border: 1px solid #ccc; padding: 20px;">
 
         <div class="row">
             <div class="col-md-12">

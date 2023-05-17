@@ -1,11 +1,12 @@
 <?php
 
 include 'database.php';
- session_start();
+session_start();
 
-if(!isset($_SESSION['username'])){
+if (!isset($_SESSION['username'])) {
     header("Location:index.php");
 }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -46,12 +47,13 @@ if(!isset($_SESSION['username'])){
         }
 
         .card-header {
-            margin-right: -31px;
-            margin-left: -74px;
+            margin-right: -65px;
+            margin-left: -49px;
         }
 
         .card-body {
-            margin-left: -92px;
+            margin-left: -68px;
+            margin-right: -79px;
         }
     </style>
 </head>
@@ -64,6 +66,15 @@ if(!isset($_SESSION['username'])){
                     <h4> Account Details
                         <a href="logout.php" class="btn btn-primary flot-end">Logout</a>
                     </h4>
+                    <!-- SEARCH FORM -->
+                    <form action="" method="POST" class="mt-3">
+                        <div class="input-group">
+                            <input type="text" name="searchVal" class="form-control" placeholder="Search by name">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit" name="search_btn">Search</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="card-body">
                     <table class="table table-border table-striped">
@@ -81,19 +92,26 @@ if(!isset($_SESSION['username'])){
                         </thead>
                         <tbody>
                             <?php
-                            $query = "SELECT * FROM registration";
-                            $query_run = mysqli_query($conn, $query);
-                            $number = 0;
-
+                            if (isset($_POST['search_btn'])) {
+                                $searchVal = $_POST['searchVal'];
+                                $query = "SELECT * FROM registration WHERE firstname LIKE '%$searchVal%'";
+                                $query_run = mysqli_query($conn, $query);
+                                $number = 0;
+                            } else {
+                                $query = "SELECT * FROM registration";
+                                $query_run = mysqli_query($conn, $query);
+                                $number = 0;
+                            }
 
                             if (mysqli_num_rows($query_run) > 0) {
                                 foreach ($query_run as $user) {
                                     $number++;
-                                    
+
                                     // print_r ($user);
                                     // die;
+                            
                                     ?>
-                                    <tr>
+                                    <tr id="<?php echo $user['id']; ?>">
 
                                         <td>
                                             <?php echo $number; ?>
@@ -120,12 +138,12 @@ if(!isset($_SESSION['username'])){
                                                 height="100">
                                         </td>
 
-                                        <td id=action-btn>
+                                        <td class="action-btn">
 
                                             <a href="edit.php?id=<?= $user['id']; ?>" class="btn btn-info btn-sm"
                                                 class="text-light">Edit</a>
 
-                                                <td><button class="btn btn-danger btn-sm remove">Delete</button></td>
+                                        <td><button class="btn btn-danger btn-sm remove">Delete</button></td>
                                         </td>
 
                                     </tr>
@@ -152,26 +170,28 @@ if(!isset($_SESSION['username'])){
     </div>
 </body>
 <script type="text/javascript">
-    $(".remove").click(function(){
+    $(document).on("click", ".remove", function () {
+
+
         var id = $(this).parents("tr").attr("id");
 
 
-        if(confirm('Are you sure to remove this record ?'))
-        {
+        if (confirm('Are you sure to remove this record ?')) {
             $.ajax({
-               url: '/delete.php',
-               type: 'GET',
-               data: {id: id},
-               error: function() {
-                  alert('Something is wrong');
-               },
-               success: function(data) {
-                    $("#"+id).remove();
-                    alert("Record removed successfully");  
-               }
+                url: 'delete.php',
+                type: 'GET',
+                data: { id: id },
+                error: function () {
+                    alert('Something is wrong');
+                },
+                success: function (data) {
+                    $("#" + id).remove();
+                    alert("Record removed successfully");
+                }
             });
         }
     });
+
 
 
 </script>

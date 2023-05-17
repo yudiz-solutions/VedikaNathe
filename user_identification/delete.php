@@ -4,20 +4,29 @@ include 'database.php';
 if(isset($_GET['id']))
 {
 // $delete_id = $_GET['delete_id'];
-$sql = "DELETE FROM registration WHERE `registration`.`id` = ".$_GET['id'];
+$id = $_GET['id'];
+$sql = "DELETE FROM registration WHERE `registration`.`id` = $id";
 
-$mysqli->query($sql);
-	 echo 'Deleted successfully.';
+$delete = mysqli_query($conn,$sql);
+if($delete){
+    echo 'Deleted successfully';
+}else{
+    echo 'error';
 }
 
-// $result = mysqli_query($conn,$sql);
-
+// $mysqli->query($sql);
+// if($mysqli){
+// echo 'Deleted Successfully';
+// }else{
+//         echo 'error';
+// }
 // if($result){
 //     header("Location: dashboard.php.?msg=Record delete");
 
 // }else{
 //     echo "Failed:" . mysqli_error($conn);
 // }
+}
 
 
 
