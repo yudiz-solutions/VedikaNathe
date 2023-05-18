@@ -264,6 +264,8 @@
                         });
             
                         $('#registration-form').trigger('reset');
+                        alert("Data Added Successfully");
+
                     },
                     error: function () {
                         console.log('error !');

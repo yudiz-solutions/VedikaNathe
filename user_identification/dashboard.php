@@ -47,7 +47,7 @@ if (!isset($_SESSION['username'])) {
         }
 
         .card-header {
-            margin-right: -65px;
+            margin-right: 604px;
             margin-left: -49px;
         }
 
@@ -66,6 +66,8 @@ if (!isset($_SESSION['username'])) {
                     <h4> Account Details
                         <a href="logout.php" class="btn btn-primary flot-end">Logout</a>
                     </h4>
+
+
                     <!-- SEARCH FORM -->
                     <form action="" method="POST" class="mt-3">
                         <div class="input-group">
@@ -75,6 +77,7 @@ if (!isset($_SESSION['username'])) {
                             </div>
                         </div>
                     </form>
+
                 </div>
                 <div class="card-body">
                     <table class="table table-border table-striped">
@@ -94,7 +97,7 @@ if (!isset($_SESSION['username'])) {
                             <?php
                             if (isset($_POST['search_btn'])) {
                                 $searchVal = $_POST['searchVal'];
-                                $query = "SELECT * FROM registration WHERE firstname LIKE '%$searchVal%'";
+                                $query = "SELECT * FROM registration WHERE firstname LIKE '%$searchVal%' or username Like '%$searchVal%' or lastname Like '%$searchVal%' or email Like '%$searchVal%'   ";
                                 $query_run = mysqli_query($conn, $query);
                                 $number = 0;
                             } else {
@@ -143,7 +146,7 @@ if (!isset($_SESSION['username'])) {
                                             <a href="edit.php?id=<?= $user['id']; ?>" class="btn btn-info btn-sm"
                                                 class="text-light">Edit</a>
 
-                                        <td><button class="btn btn-danger btn-sm remove">Delete</button></td>
+                                        <button class="btn btn-danger btn-sm remove">Delete</button>
                                         </td>
 
                                     </tr>
@@ -159,19 +162,13 @@ if (!isset($_SESSION['username'])) {
                         </tbody>
 
                     </table>
-
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
 </body>
 <script type="text/javascript">
     $(document).on("click", ".remove", function () {
-
 
         var id = $(this).parents("tr").attr("id");
 
@@ -195,6 +192,4 @@ if (!isset($_SESSION['username'])) {
 
 
 </script>
-
-
 </html>

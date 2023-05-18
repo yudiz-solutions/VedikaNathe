@@ -78,8 +78,7 @@ $result  = array();
         $query_result = mysqli_query($conn, $sql);
         if ($query_result) {
             $result['status'] = 1;
-            $result['message'][] = 'Data Added Successfully';
-            
+            // $result['message'][] = 'Data Added Successfully';
             // header('location : login.php');
         }else{
 

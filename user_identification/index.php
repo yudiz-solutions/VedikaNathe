@@ -28,12 +28,12 @@ if(isset($_POST['submit'])){
     if (empty($errors)) {
 
         $sql="SELECT * FROM `registration` WHERE email='$email' ";
-        echo $sql;
+        // echo $sql;
         $result = mysqli_query($conn, $sql);
        
         if($result->num_rows >0){
             $row = mysqli_fetch_assoc($result);
-            var_dump($row);
+            // var_dump($row);
             
             // echo $_POST['password'];
             // die;
