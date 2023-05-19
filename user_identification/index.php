@@ -4,7 +4,7 @@ include 'database.php';
 error_reporting(0);
 
 if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
-	header("location:dashboard.php");
+	header("location:home.php");
 }
 
 if(isset($_POST['submit'])){
@@ -41,7 +41,7 @@ if(isset($_POST['submit'])){
             if(password_verify($_POST['password'],$row['password'])){
                 
                 $_SESSION['username']= $row['username'];
-                header("location:temp.php");
+                header("location:home.php");
                 // echo 'hello';
                 // die;
             }else{

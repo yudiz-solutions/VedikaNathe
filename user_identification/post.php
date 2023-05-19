@@ -1,5 +1,6 @@
 
 <?php include 'header.php'; ?>
+
     <div class="row">
           <div class="col-md-12">
               <div class="card-header">
@@ -19,28 +20,28 @@
               <label for="firstname">First Name:*</label>
               <input type="text" class="form-control" id="first_name" name="first_name">
               <span class="error text-danger"></span>
-      </div>
+        </div>
 
-      <div class="form-group">
+        <div class="form-group">
               <label for="lastname">Last Name:*</label>
               <input type="text" class="form-control" id="last_name" name="last_name">
               <span class="error text-danger"></span>
-      </div>
+        </div>
 
-      <div class="form-group">
+        <div class="form-group">
               <label for="email">Email:*</label>
               <input type="email" class="form-control" id="email" name="email">
               <span class="error text-danger"></span>
-      </div>
+        </div>
 
-      <div class="form-group">
+       <div class="form-group">
               <label for="message">Your Message:</label>
               <textarea class="form-control" id="message" name="message"></textarea>
               <span class="error text-danger"></span>
 
-      </div>
+       </div>
 
-      <div class="form-group">
+        <div class="form-group">
                 <label for="file">Your File:*</label>
               <div class="custom-file">
                     <input type="file" class="custom-file-input" id="file" name="file">
@@ -86,11 +87,11 @@
           $("#last_name").next().text("Please enter your last name.");
         }
 
-        if(first_name.trim() == ""){
+        if(email.trim() == ""){
           $("#email").next().text("Please enter your first name.");
         }
 
-        if(first_name.trim() == ""){
+        if(message.trim() == ""){
           $("#message").next().text("Please enter your message name.");
         }
 
@@ -101,6 +102,7 @@
         if(file == '' || file == undefined){
           $("#file").next().next().text("Please select a file.");
         }
+        console.log(file);
 
         // if(file != '' && file != undefined){
         //   console.log(file.size)
@@ -118,15 +120,18 @@
 
         // it contains data in organize manner and send to the server
         var formData = new FormData(this);
-
+     
         $.ajax({
           url: 'post_client_validation.php',
           type: "POST",
           processData: false, //prevents jquery from processing the data
           contentType: false,      
           data:formData,
-          sucess:function(response) {
+          success:function(response) {
             var obj = JSON.parse(response);
+            alert('test');
+
+
             var error = '';
             $.each(obj, function (input_id, error_message) {
               console.log(input_id)
@@ -135,11 +140,12 @@
             });
 
             $('#post-form').trigger('reset');
-
+            alert(obj.status);
             if(obj.status == 1) {
+
               swal({
                 title: "Success",
-                text: "Data Added Successfully",
+                text: "Post Added Successfully",
                 icon: "success",
                 buttons: {
                   confirm: "Okay"

@@ -9,7 +9,7 @@ $last_name = isset($_POST['last_name']) ? $_POST['last_name'] : '';
 
 $email = isset($_POST['email']) ? $_POST['email'] : '';
 
-$msg = isset($_POST['msg']) ? $_POST['msg'] : '';
+$msg = isset($_POST['message']) ? $_POST['message'] : '';
 
 $file = isset($_FILES['file']['name']) ? $_FILES['file']['name'] : '';
 $file_tmp = isset($_FILES['file']['tmp_name']) ? $_FILES['file']['tmp_name'] : '';
@@ -44,12 +44,12 @@ if(empty($msg)){
 if(!$has_error){
     $sql = "INSERT INTO `post` (`id`, `first_name`, `last_name`, `email`, `msg`, `file`) VALUES (NULL, '$first_name', '$last_name', '$email', '$msg', '$folder')";
 
-    $query_run = mysqli_query($conn,$sql);
-    if($query_run){
+    $query_result = mysqli_query($conn,$sql);
+    if($query_result){
         $result['status'] = 1;
     }else{
         $result[''][] = 'Error';
     }
+    echo json_encode($result);
 }
-echo json_encode($result);
 ?>
