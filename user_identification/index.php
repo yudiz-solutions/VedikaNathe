@@ -41,11 +41,11 @@ if(isset($_POST['submit'])){
             if(password_verify($_POST['password'],$row['password'])){
                 
                 $_SESSION['username']= $row['username'];
-                header("location:dashboard.php");
+                header("location:temp.php");
                 // echo 'hello';
                 // die;
             }else{
-                $errors["pass"] = "pass not match";
+                $errors["password"] = "password not match";
             }
             
         }else{
@@ -101,6 +101,8 @@ if(isset($_POST['submit'])){
 
                 </form>
                 <p>Don't have an account? <a href="register.php">Sign up</a></p>
+                
+
             </div>
         </div>
     </div>

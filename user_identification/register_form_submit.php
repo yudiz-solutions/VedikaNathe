@@ -82,7 +82,7 @@ $result  = array();
             // header('location : login.php');
         }else{
 
-            $result['message'][] = 'Error';           
+            $result[''][] = 'Error';           
         }
     }
     echo json_encode($result);

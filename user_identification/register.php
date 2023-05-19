@@ -9,6 +9,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/gh/t4t5/sweetalert@v0.2.0/lib/sweet-alert.css" />
 
     <title>USER REGISTRATION FORM</title>
 
@@ -16,6 +17,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <style>
+        .swal-modal {
+            font-family: sans-serif;
+        }
+
+        .swal-text {
+            text-align: center;
+        }
+    </style>
+
+
 
 </head>
 
@@ -27,7 +40,6 @@
         <div class="col-md-12">
             <div class="card-header">
                 <h4>USER REGISTRATION FORM</h4>
-                
                 <a href="index.php" class="btn btn-primary">Login Accounts</a>
             </div>
         </div>
@@ -47,8 +59,8 @@
                 <div class="mb-3">
                     <label for="first-name">First Name*</label>
                     <input type="text" class="form-control" id="firstname" name="firstname">
-                    <span class="error text-danger" ></span>
-                    
+                    <span class="error text-danger"></span>
+
                 </div>
                 <div class="mb-3">
                     <label for="last-name">Last Name*</label>
@@ -65,7 +77,7 @@
                 <div class="mb-3">
                     <label for="email">Email Address*</label>
                     <input type="email" class="form-control" id="email" name="email">
-                    <span class="error text-danger"></span>                    
+                    <span class="error text-danger"></span>
                 </div>
 
                 <div class="mb-3">
@@ -162,7 +174,7 @@
             $("#registration-form").on("submit", function (event) {
                 event.preventDefault();
 
-                // client-side validation
+                // get the values of form elements
 
                 var firstname = $("#firstname").val();
                 var username = $("#username").val();
@@ -171,20 +183,20 @@
                 var password = $("#password").val();
                 var confirm_password = $("#confirm-password").val();
                 var dob = $("#dob").val();
-                
+
 
                 var hobby = "";
                 $('input[name="hobby[]"]:checked').each(function () {
-                    hobby += $(this).val()+',';
+                    hobby += $(this).val() + ',';
                 });
                 // console.log (hobby);
                 var gender = $("input[name='gender']:checked").val();
                 var country = $('#country option:selected').val();
                 var message = $("#message").val();
                 var profile_image = $("#profile-image")[0].files[0];
-                
-                // perform client-side validation               
-                
+
+                // .text()sets or returns the text content of the selected elements.
+
                 $("#firstname").next().text("");
                 $("#username").next().text("");
                 $("#lastname").next().text("");
@@ -194,21 +206,21 @@
                 $("#confirm-password").next().text("");
                 $("#confirm-password").next().text("");
 
-                if (firstname.trim() == "") {                  
-                    $("#firstname").next().text("Please enter your first name.");                    
+                if (firstname.trim() == "") {
+                    $("#firstname").next().text("Please enter your first name.");
                 }
-           
-                if (username.trim() == "") {                
-                    $("#username").next().text("Please enter a username.");                 
+
+                if (username.trim() == "") {
+                    $("#username").next().text("Please enter a username.");
                 }
 
                 if (lastname.trim() == "") {
-                    $("#lastname").next().text("Please enter your last name.");                 
+                    $("#lastname").next().text("Please enter your last name.");
                 }
 
                 if (email.trim() == "") {
                     $("#email").next().text("Please enter your email.");
-                } 
+                }
 
                 if (!isValidEmail(email)) {
                     $("#email").next().text("Please enter a valid email address.");
@@ -216,22 +228,22 @@
 
                 if (password.trim() == "") {
                     $("#password").next().text("Please enter a password.");
-                } 
+                }
 
                 if (confirm_password.trim() == "") {
-                    $("#confirm-password").next().text("Please confirm your password.");  
-                } 
+                    $("#confirm-password").next().text("Please confirm your password.");
+                }
 
                 if (password != confirm_password) {
                     $("#confirm-password").next().text("Passwords do not match.");
-                } 
+                }
 
                 function isValidEmail(email) {
                     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                     return emailRegex.test(email);
                 }
-                
-                // perform validation
+
+                // it contains data in organize manner and send to the server
                 var formData = new FormData();
 
                 formData.append("firstname", firstname);
@@ -246,25 +258,35 @@
                 formData.append("country", country);
                 formData.append("message", message)
                 var profile = $("#profile-image")[0].files[0];
-                formData.append("profile_image",profile);
+                formData.append("profile_image", profile);
 
                 $.ajax({
-                    url: 'register_form_submit.php',              
+                    url: 'register_form_submit.php',
                     type: "POST",
                     processData: false,
                     contentType: false,
-                    data : formData,
+                    data: formData,
                     success: function (response) {
-                        var obj = JSON.parse(response);   
-                       
+                        var obj = JSON.parse(response);
                         var error = '';
-                        $.each( obj, function( input_id, error_message ){
+                        $.each(obj, function (input_id, error_message) {
                             console.log(input_id)
-                            $("#"+input_id).next().html(error_message);
+                            $("#" + input_id).next().html(error_message);
                         });
-            
+
                         $('#registration-form').trigger('reset');
-                        alert("Data Added Successfully");
+
+                        if (obj.status == 1) {
+                            swal({
+                                title: "Success",
+                                text: "Data added successfully!",
+                                icon: "success",
+                                buttons: {
+                                    confirm: "Okay"
+                                },
+                                closeOnClickOutside: false
+                            });
+                        }
 
                     },
                     error: function () {
@@ -272,7 +294,10 @@
                     }
                 });
             });
+
+
         });
     </script>
 </body>
+
 </html>

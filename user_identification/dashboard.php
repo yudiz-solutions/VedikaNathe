@@ -7,64 +7,15 @@ if (!isset($_SESSION['username'])) {
     header("Location:index.php");
 }
 
+include 'header.php';
 ?>
-<!doctype html>
-<html lang="en">
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
-
-        </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js">
-    </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
-    </script>
-    <title>Display All User Account</title>
-    <style>
-        #action-btn {
-            display: flex;
-        }
-
-        a {
-            margin-right: 3px;
-        }
-
-        .card-header {
-            margin-right: 604px;
-            margin-left: -49px;
-        }
-
-        .card-body {
-            margin-left: -68px;
-            margin-right: -79px;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container mt-4">
+  <div class="container mt-4">
         <div class="row">
             <div class="col-md-12">
                 <div class="card-header">
                     <h4> Account Details
-                        <a href="logout.php" class="btn btn-primary flot-end">Logout</a>
                     </h4>
 
 
@@ -166,7 +117,8 @@ if (!isset($_SESSION['username'])) {
             </div>
         </div>
     </div>
-</body>
+  </div>
+<?php include 'footer.php' ?>
 <script type="text/javascript">
     $(document).on("click", ".remove", function () {
 
@@ -192,4 +144,3 @@ if (!isset($_SESSION['username'])) {
 
 
 </script>
-</html>
