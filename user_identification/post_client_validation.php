@@ -77,6 +77,8 @@ if(!$has_error){
                 $post_key = mysqli_real_escape_string($conn, $key);
                 $post_value = mysqli_real_escape_string($conn, $value);
                $meta_sql = "INSERT INTO `meta_post` (`id`, `post_id`, `meta_key`, `meta_value`) VALUES (NULL, '$post_id', '$post_key', '$post_value')";
+            //    echo $meta_sql;
+            //    die;
                 mysqli_query($conn,$meta_sql);
             }
         }

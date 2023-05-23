@@ -133,15 +133,16 @@
         data: formData,
         success: function(response) {
           var obj = JSON.parse(response);
-
+              console.log(obj);
           var error = '';
           $.each(obj, function(input_id, error_message) {
-            $("#" + input_id).next().html(error_message.join("<br>"));
+            $("#" + input_id).next().html(error_message);
           });
 
           
           if (obj.status == 1) {
             $('#post-form').trigger('reset');
+            // console.log(obj);
             swal({
               title: "Success",
               text: "Post Added Successfully",
