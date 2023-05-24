@@ -195,7 +195,7 @@
                 var message = $("#message").val();
                 var profile_image = $("#profile-image")[0].files[0];
 
-                // .text()sets or returns the text content of the selected elements.
+                // text()sets or returns the text content of the selected elements.
 
                 $("#firstname").next().text("");
                 $("#username").next().text("");

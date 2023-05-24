@@ -15,9 +15,7 @@ include 'header.php';
         <div class="row">
             <div class="col-md-12">
                 <div class="card-header">
-                    <h4> Account Details
-                    </h4>
-
+                    <h4> Account Details</h4>
 
                     <!-- SEARCH FORM -->
                     <form action="" method="POST" class="mt-3">
@@ -55,6 +53,7 @@ include 'header.php';
                                 $query = "SELECT * FROM registration";
                                 $query_run = mysqli_query($conn, $query);
                                 $number = 0;
+                                
                             }
 
                             if (mysqli_num_rows($query_run) > 0) {

@@ -32,6 +32,7 @@ $result  = array();
     $profile_image = isset($_FILES['profile_image']['name']) ? $_FILES['profile_image']['name'] : '';
     $image_tmp = isset($_FILES['profile_image']['tmp_name']) ? $_FILES['profile_image']['tmp_name'] :'';
     $file = '';
+    
     if( !empty($image_tmp)){
         $file = "uploads/" . $profile_image;
         move_uploaded_file($image_tmp, $file);        
